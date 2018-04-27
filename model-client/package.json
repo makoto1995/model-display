@@ -161,15 +161,12 @@
     "npm": "^3.9.5"
   },
   "scripts": {
-    "lint": "npm run lint:client && npm run lint:server",
+    "lint": "npm run lint:client",
     "lint:client": "eslint ./client/**/*.ts -c ./client/.eslintrc --ignore-pattern *.spec.ts",
-    "lint:server": "eslint ./server/**/*.js -c ./server/.eslintrc --ignore-pattern *.spec.js --ignore-pattern *.integration.js",
     "test": "gulp test",
-    "test:client": "karma start ./karma.conf.js --single-run",
     "update-webdriver": "node node_modules/protractor/bin/webdriver-manager update",
     "start": "webpack-dev-server --config webpack.dev.js",
-    "start:client": "webpack-dev-server --config webpack.dev.js",
-    "start:server": "node server"
+    "start:client": "webpack-dev-server --config webpack.dev.js"
   },
   "private": true
 }

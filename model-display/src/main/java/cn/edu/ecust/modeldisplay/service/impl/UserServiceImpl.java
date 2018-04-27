@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
         this.userMapper = userMapper;
     }
     @Override
-    public List<User> index(User currentUser){
+    public User[] index(User currentUser){
         try {
             if(currentUser.getRole()!=5){
                 throw new UserControlException("权限不足，操作非法，请刷新页面！");

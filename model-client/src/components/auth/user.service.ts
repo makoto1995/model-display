@@ -41,10 +41,6 @@ export class UserService {
         return this.AuthHttp.post('/api/users/', user)
             .catch(handleError);
     }
-    changePassword(user, oldPassword, newPassword) {
-        return this.AuthHttp.put(`/api/users/${user.userId}/password`, {oldPassword, newPassword})
-            .catch(handleError);
-    }
     remove(user) {
         return this.AuthHttp.delete(`/api/users/${user.userId}`)
             .catch(handleError);

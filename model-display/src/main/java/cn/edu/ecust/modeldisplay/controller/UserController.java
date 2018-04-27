@@ -44,9 +44,10 @@ public class UserController {
 
     @PostMapping(value = "/login", produces = {"application/json; charset=utf-8"})
     @ResponseBody
-    public Result<User> login(@RequestParam("email") String email, @RequestParam("password") String password) {
+    public Result<User> login(@RequestParam("email") String email, @RequestParam("password") String password, HttpSession httpSession) {
         try {
             if (userService.getUserByEmail(email).getPassword().equals(password)) {
+                httpSession.setAttribute("currentUser", userService.getUserByEmail(email));
                 return new Result<>(true, userService.getUserByEmail(email), Jwts.builder()
                         .setPayload(JSON.toJSONString(new _id(userService.getUserByEmail(email).getUserID(), String.valueOf(userService.getUserByEmail(email).getRole()))))
                         .signWith(SignatureAlgorithm.HS512, key)
@@ -67,7 +68,7 @@ public class UserController {
             logger.error(e1.getMessage(), e1);
             return new Result<>(false, e1.getMessage());
         }
-        httpSession.setAttribute("user", userService.getUserByEmail(user.getEmail()));
+        httpSession.setAttribute("currentUser", userService.getUserByEmail(user.getEmail()));
         return new Result<>(true, userService.getUserByEmail(user.getEmail()), Jwts.builder()
                 .setPayload(JSON.toJSONString(new _id(user.getUserID(), String.valueOf(user.getRole()))))
                 .signWith(SignatureAlgorithm.HS512, key)
@@ -87,7 +88,7 @@ public class UserController {
 
     @GetMapping(value = "/", produces = {"application/json; charset=utf-8"})
     @ResponseBody
-    public Result<List<User>> listUsers(@SessionAttribute User user) {
+    public Result<User[]> listUsers(@SessionAttribute("currentUser") User user) {
         try {
             return new Result<>(true, userService.index(user));
         } catch (UserControlException e1) {
@@ -99,7 +100,7 @@ public class UserController {
 
     @DeleteMapping(value = "/{id}", produces = {"application/json; charset=utf-8"})
     @ResponseBody
-    public Result<User> deleteUser(@PathVariable("id") String id, @SessionAttribute User user) {
+    public Result<User> deleteUser(@PathVariable("id") String id, @SessionAttribute("currentUser") User user) {
         try {
             userService.deleteUser(user, id);
             return new Result<>(true, user);

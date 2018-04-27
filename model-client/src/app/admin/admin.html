@@ -1,10 +1,9 @@
 <div class="container">
-  <p>The delete user and user index api routes are restricted to users with the 'admin' role.</p>
   <ul class="list-group user-list">
     <li class="list-group-item" *ngFor="let user of users">
       <div class="user-info">
-          <strong>{{user.name}}</strong><br>
-          <span class="text-muted">{{user.email}}</span>
+          <strong>{{user.userName}}</strong><br>
+          <span class="text-muted">{{user.userEmail}}</span>
       </div>
         <a (click)="delete(user)" class="trash"><span class="fa fa-trash fa-2x"></span></a>
     </li>

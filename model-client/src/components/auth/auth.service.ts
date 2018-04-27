@@ -85,44 +85,6 @@ export class AuthService {
         return Promise.resolve();
     }
 
-    // /**
-    //  * Create a new user
-    //  *
-    //  * @param  {Object}   user     - user info
-    //  * @param  {Function} callback - optional, function(error, user)
-    //  * @return {Promise}
-    //  */
-    // createUser(user, callback) {
-    //     return this.UserService.create(user).toPromise()
-    //         .then(data => {
-    //             localStorage.setItem('id_token', data.token);
-    //             return this.UserService.get().toPromise();
-    //         })
-    //         .then((_user: User) => {
-    //             this.currentUser = _user;
-    //             return safeCb(callback)(null, _user);
-    //         })
-    //         .catch(err => {
-    //             this.logout();
-    //             return safeCb(callback)(err);
-    //         });
-    // }
-
-    /**
-     * Change password
-     *
-     * @param  {String}   oldPassword
-     * @param  {String}   newPassword
-     * @param  {Function} [callback] - function(error, user)
-     * @return {Promise}
-     */
-    changePassword(oldPassword, newPassword, callback) {
-        return this.UserService.changePassword({userId: this.currentUser.userId}, oldPassword, newPassword)
-            .toPromise()
-            .then(() => safeCb(callback)(null))
-            .catch(err => safeCb(callback)(err));
-    }
-
     /**
      * Gets all available info on a user
      *

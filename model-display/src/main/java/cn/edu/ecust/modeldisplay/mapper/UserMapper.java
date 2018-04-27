@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface UserMapper {
-    List<User> index();
+    User[] index();
     void register(@Param("user") User user);
     User getUserByEmail(@Param("email")String email);
     User getUserByUserID(@Param("userID")String id);
