@@ -1,5 +1,5 @@
-import { safeCb } from './util';
-import { expect } from 'chai';
+import {safeCb} from './util';
+import {expect} from 'chai';
 
 describe('Util', () => {
     it('Has a safeCb function', () => {

@@ -24,9 +24,7 @@ const accountRoutes: Routes = [{
   imports: [
     FormsModule,
     BrowserModule,
-
     RouterModule.forChild(accountRoutes),
-
   ],
   declarations: [
     LoginComponent,

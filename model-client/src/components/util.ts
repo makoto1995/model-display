@@ -2,11 +2,8 @@
  * The Util service is for thin, globally reusable, utility functions
  */
 
-import {
-    isFunction,
-    noop,
-} from 'lodash';
-import { Response } from '@angular/http';
+import {isFunction, noop,} from 'lodash';
+import {Response} from '@angular/http';
 
 /**
  * Return a callback or noop function

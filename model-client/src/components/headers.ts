@@ -1,4 +1,4 @@
-import { Headers } from '@angular/http';
+import {Headers} from '@angular/http';
 
 export let contentHeaders = new Headers();
 contentHeaders.append('Accept', 'application/json');

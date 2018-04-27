@@ -1,14 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
 
+import {RouterModule} from '@angular/router';
 
-import { RouterModule } from '@angular/router';
+import {AuthModule} from './auth/auth.module';
 
-import { AuthModule } from './auth/auth.module';
-
-import { NavbarComponent } from './navbar/navbar.component';
-import { FooterComponent } from './footer/footer.component';
+import {NavbarComponent} from './navbar/navbar.component';
+import {FooterComponent} from './footer/footer.component';
 
 
 @NgModule({

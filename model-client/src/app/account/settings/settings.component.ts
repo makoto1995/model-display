@@ -29,7 +29,6 @@ interface User {
   template: require('./settings.html'),
 })
 export class SettingsComponent {
-  static parameters = [AuthService];
   user: ChangePasswordDto = {
     oldPassword: '',
     newPassword: '',
@@ -40,6 +39,8 @@ export class SettingsComponent {
   submitted = false;
   AuthService;
   Router;
+
+  static parameters = [AuthService];
 
   constructor(_AuthService_: AuthService, public client: HttpClient, router: Router) {
     this.AuthService = _AuthService_;
