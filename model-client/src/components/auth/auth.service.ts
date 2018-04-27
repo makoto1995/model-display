@@ -117,7 +117,7 @@ export class AuthService {
      * @return {Promise}
      */
     changePassword(oldPassword, newPassword, callback) {
-        return this.UserService.changePassword({id: this.currentUser.userId}, oldPassword, newPassword)
+        return this.UserService.changePassword({userId: this.currentUser.userId}, oldPassword, newPassword)
             .toPromise()
             .then(() => safeCb(callback)(null))
             .catch(err => safeCb(callback)(err));
