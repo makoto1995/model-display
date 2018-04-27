@@ -25,7 +25,7 @@ export class AdminComponent {
 
   constructor( public httpClient: HttpClient) {
     // Use the user service to fetch all users
-    this.httpClient.get<Result<User[]>>('/api/users/', {
+    this.httpClient.get<Result<User[]>>(`/api/users/`, {
       observe: 'response',
       headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
     }).subscribe(
@@ -36,7 +36,7 @@ export class AdminComponent {
   }
 
   delete(user) {
-    this.httpClient.delete<Result<User>>('/api/users/${user.userId}', {
+    this.httpClient.delete<Result<User>>(`/api/users/${user.userId}`, {
       observe: 'response',
       headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
     }).subscribe(

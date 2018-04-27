@@ -46,7 +46,7 @@ export class LoginComponent {
     let password = this.user.userPassword;
     let body = JSON.stringify({userEmail: email, userPassword: password});
     this.submitted = true;
-    this.client.post<Result<User>>('/api/users/login', body, {
+    this.client.post<Result<User>>(`/api/users/login`, body, {
       observe: 'response',
       headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
     }).subscribe(
