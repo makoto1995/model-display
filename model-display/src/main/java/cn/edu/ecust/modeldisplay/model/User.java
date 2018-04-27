@@ -7,11 +7,11 @@ public class User {
     private String userId;
     private int userRole;
 
-    public User(){
+    public User() {
 
     }
 
-    public User(String userName, String userPassword, String userEmail){
+    public User(String userName, String userPassword, String userEmail) {
         this.userEmail = userEmail;
         this.userName = userName;
         this.userPassword = userPassword;

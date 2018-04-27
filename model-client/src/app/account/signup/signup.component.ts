@@ -12,6 +12,7 @@ interface User {
   userId: string;
   userRole: string;
 }
+
 interface Result<T> {
   success: boolean;
   data: T;
@@ -23,6 +24,7 @@ interface Result<T> {
   template: require('./signup.html')
 })
 export class SignupComponent {
+  static parameters = [AuthService, Router];
   user: User = {
     userEmail: '',
     userPassword: '',
@@ -35,9 +37,6 @@ export class SignupComponent {
   submitted = false;
   AuthService;
   Router;
-
-
-  static parameters = [AuthService, Router];
 
   constructor(_AuthService_: AuthService, router: Router, public client: HttpClient) {
     this.AuthService = _AuthService_;

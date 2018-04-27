@@ -1,7 +1,5 @@
 package cn.edu.ecust.modeldisplay.dto;
 
-import org.springframework.lang.Nullable;
-
 public class Result<T> {
     private boolean success;
     private T data;

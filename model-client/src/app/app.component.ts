@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
-    selector: 'app',
-    template: `<navbar></navbar>
+  selector: 'app',
+  template: `<navbar></navbar>
     <router-outlet></router-outlet>`
 })
-export class AppComponent {}
+export class AppComponent {
+}

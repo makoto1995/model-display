@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.security.Key;
-import java.util.List;
 
 @Controller
 @RequestMapping("/users")
@@ -26,16 +25,6 @@ public class UserController {
     private Key key = MacProvider.generateKey();
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     private UserService userService;
-
-    private final class _id {
-        public String id;
-        public String role;
-
-        public _id(String id, String role) {
-            this.id = id;
-            this.role = role;
-        }
-    }
 
     @Autowired
     public UserController(UserService userService) {
@@ -131,6 +120,16 @@ public class UserController {
         } catch (UserControlException e1) {
             logger.error(e1.getMessage(), e1);
             return new Result<>(false, e1.getMessage());
+        }
+    }
+
+    private final class _id {
+        public String id;
+        public String role;
+
+        public _id(String id, String role) {
+            this.id = id;
+            this.role = role;
         }
     }
 }

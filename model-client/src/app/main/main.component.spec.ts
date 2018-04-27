@@ -1,24 +1,7 @@
 'use strict';
-import {
-    async,
-    ComponentFixture,
-    inject,
-    TestBed,
-} from '@angular/core/testing';
-import {
-    BaseRequestOptions,
-    ConnectionBackend,
-    Http,
-    HttpModule,
-    Response,
-    ResponseOptions,
-} from '@angular/http';
-import { MockBackend } from '@angular/http/testing';
-import { expect } from 'chai';
-import { FormsModule } from '@angular/forms';
-import { SocketService } from '../../components/socket/socket.service';
-import { SocketServiceStub } from '../../components/socket/socket.mock';
-import { MainComponent } from './main.component';
+import {expect} from 'chai';
+import {SocketService} from '../../components/socket/socket.service';
+import {SocketServiceStub} from '../../components/socket/socket.mock';
 
 // describe('Component: MainComponent', function() {
 //     let comp: MainComponent;

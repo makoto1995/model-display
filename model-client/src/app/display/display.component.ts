@@ -1,7 +1,8 @@
-import {Component, NgZone, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import 'unityLoader';
-declare const UnityLoader;
 import * as $ from 'jquery';
+
+declare const UnityLoader;
 
 
 @Component({
@@ -11,13 +12,16 @@ import * as $ from 'jquery';
 })
 export class DisplayComponent {
   public gameInstance: any;
+
   constructor() {
   }
+
   public ngOnInit(): void {
     this.init();
   }
+
   private init() {
-    $.getScript('assets/Build/UnityLoader.js').done(function ( bla , text) {
+    $.getScript('assets/Build/UnityLoader.js').done(function (bla, text) {
       this.gameInstance =
         UnityLoader.instantiate('gameContainer', 'assets/Build/TestBuild.json');
       //gameObject not undefined at this stage..

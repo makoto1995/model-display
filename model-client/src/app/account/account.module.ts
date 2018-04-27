@@ -1,37 +1,38 @@
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { RouterModule, Routes } from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 
 
-import { LoginComponent } from './login/login.component';
-import { SettingsComponent } from './settings/settings.component';
-import { SignupComponent } from './signup/signup.component';
+import {LoginComponent} from './login/login.component';
+import {SettingsComponent} from './settings/settings.component';
+import {SignupComponent} from './signup/signup.component';
 
 const accountRoutes: Routes = [{
-    path: 'login',
-    component: LoginComponent,
+  path: 'login',
+  component: LoginComponent,
 }, {
-    path: 'settings',
-    component: SettingsComponent,
+  path: 'settings',
+  component: SettingsComponent,
 }, {
-    path: 'signup',
-    component: SignupComponent,
+  path: 'signup',
+  component: SignupComponent,
 }];
 
 @NgModule({
-    imports: [
-        FormsModule,
-        BrowserModule,
+  imports: [
+    FormsModule,
+    BrowserModule,
 
-        RouterModule.forChild(accountRoutes),
+    RouterModule.forChild(accountRoutes),
 
-    ],
-    declarations: [
-        LoginComponent,
-        SignupComponent,
-        SettingsComponent,
-    ],
+  ],
+  declarations: [
+    LoginComponent,
+    SignupComponent,
+    SettingsComponent,
+  ],
 })
-export class AccountModule {}
+export class AccountModule {
+}

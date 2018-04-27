@@ -23,7 +23,7 @@ interface Result<T> {
 export class AdminComponent {
   users: Object[];
 
-  constructor( public httpClient: HttpClient) {
+  constructor(public httpClient: HttpClient) {
     // Use the user service to fetch all users
     this.httpClient.get<Result<User[]>>(`/api/users/`, {
       observe: 'response',

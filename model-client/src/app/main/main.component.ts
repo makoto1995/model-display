@@ -1,19 +1,16 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import {Component} from '@angular/core';
 import 'chart.js';
 import 'rxjs/add/operator/map';
 
 @Component({
-    selector: 'main',
-    template: require('./main.html'),
-    styles: [require('./main.scss')],
+  selector: 'main',
+  template: require('./main.html'),
+  styles: [require('./main.scss')],
 })
 
 
-
 export class MainComponent {
-  randomScalingFactor = function() {
+  randomScalingFactor = function () {
     return Math.round(Math.random() * 100);
   };
   chartOptions = {
@@ -21,9 +18,9 @@ export class MainComponent {
   };
 
   chartData = [
-    { data: [330, 600, 260, 700], label: 'Account A' },
-    { data: [120, 455, 100, 340], label: 'Account B' },
-    { data: [45, 67, 800, 500], label: 'Account C' }
+    {data: [330, 600, 260, 700], label: 'Account A'},
+    {data: [120, 455, 100, 340], label: 'Account B'},
+    {data: [45, 67, 800, 500], label: 'Account C'}
   ];
 
   chartLabels = ['January', 'February', 'Mars', 'April'];

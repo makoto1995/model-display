@@ -4,7 +4,6 @@ import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../../../components/auth/auth.service';
 import {Router} from '@angular/router';
 
-
 interface User {
   userEmail: string;
   userName: string;
@@ -12,6 +11,7 @@ interface User {
   userId: string;
   userRole: string;
 }
+
 interface Result<T> {
   success: boolean;
   data: T;
@@ -50,20 +50,20 @@ export class LoginComponent {
       observe: 'response',
       headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
     }).subscribe(
-        res => {
-          if (res.body.success = false) {
-            this.errors.login = res.body.data;
-            return;
-          }
-          localStorage.setItem('id_token', res.body.token);
-          console.log(res.body.token);
-          this.AuthService.login(res.body.data);
-          this.Router.navigateByUrl('/home');
-        },
-        error => {
-          alert(error.text());
-          console.log(error.text());
+      res => {
+        if (res.body.success = false) {
+          this.errors.login = res.body.data;
+          return;
         }
-      );
+        localStorage.setItem('id_token', res.body.token);
+        console.log(res.body.token);
+        this.AuthService.login(res.body.data);
+        this.Router.navigateByUrl('/home');
+      },
+      error => {
+        alert(error.text());
+        console.log(error.text());
+      }
+    );
   }
 }

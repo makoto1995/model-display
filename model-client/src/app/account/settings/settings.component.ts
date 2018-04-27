@@ -29,6 +29,7 @@ interface User {
   template: require('./settings.html'),
 })
 export class SettingsComponent {
+  static parameters = [AuthService];
   user: ChangePasswordDto = {
     oldPassword: '',
     newPassword: '',
@@ -39,8 +40,6 @@ export class SettingsComponent {
   submitted = false;
   AuthService;
   Router;
-
-  static parameters = [AuthService];
 
   constructor(_AuthService_: AuthService, public client: HttpClient, router: Router) {
     this.AuthService = _AuthService_;
@@ -57,7 +56,7 @@ export class SettingsComponent {
     this.client.put<Result<User>>('/api/users/${user.userId}/password', {
       oldPassword: this.user.oldPassword,
       newPassword: this.user.newPassword,
-    },{
+    }, {
       observe: 'response',
       headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
     }).subscribe(

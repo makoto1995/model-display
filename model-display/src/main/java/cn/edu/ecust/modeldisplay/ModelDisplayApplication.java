@@ -24,8 +24,13 @@ import javax.sql.DataSource;
 public class ModelDisplayApplication {
     private static Logger logger = LoggerFactory.getLogger(ModelDisplayApplication.class);
 
+    public static void main(String[] args) {
+        SpringApplication.run(ModelDisplayApplication.class, args);
+        logger.info("============= SpringBoot Start Success =============");
+    }
+
     @Bean
-    @ConfigurationProperties(prefix="spring.datasource")
+    @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource dataSource() {
         return new org.apache.tomcat.jdbc.pool.DataSource();
     }
@@ -46,10 +51,5 @@ public class ModelDisplayApplication {
     @Bean
     public PlatformTransactionManager transactionManager() {
         return new DataSourceTransactionManager(dataSource());
-    }
-
-    public static void main(String[] args) {
-        SpringApplication.run(ModelDisplayApplication.class, args);
-        logger.info("============= SpringBoot Start Success =============");
     }
 }

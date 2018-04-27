@@ -1,6 +1,6 @@
 import {ApplicationRef, NgModule, Provider,} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {createInputTransfer, createNewHosts, removeNgStyles,} from '@angularclass/hmr';
 
 import {RouterModule, Routes} from '@angular/router';
