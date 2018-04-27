@@ -1,0 +1,60 @@
+.thing-form {
+  margin: 20px 0;
+}
+
+#banner {
+  border-bottom: none;
+  margin-top: -20px;
+}
+
+#banner h1 {
+  font-size: 60px;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.hero-unit {
+  position: relative;
+  padding: 30px 15px;
+  color: #F5F5F5;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+  background: #4393B9;
+}
+
+.navbar-text {
+  margin-left: 15px;
+}
+
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+.container {
+  max-width: 960px;
+}
+
+.model-chart .col-lg-7 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.model-chart .col-lg-5 {
+   margin-bottom: 1.5rem;
+   text-align: center;
+ }
+.model-chart h2 {
+  font-weight: 400;
+}
+.model-chart .col-lg-6 p {
+  margin-right: .75rem;
+  margin-left: .75rem;
+}
+
+.border-top { border-top: 1px solid #e5e5e5; }
+.border-bottom { border-bottom: 1px solid #e5e5e5; }
+
+.box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
