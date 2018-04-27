@@ -1,0 +1,10 @@
+*/.gradle
+*/.idea
+*/gradle/wrapper/gradle-wrapper.jar
+*.idea
+*.iml
+*/target/
+*/out/
+*.DS_Store
+*node_modules/*
+*dist*
