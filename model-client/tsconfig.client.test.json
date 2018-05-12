@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "sourceMap": true,
-    "rootDir": "./client",
+    "rootDir": "./src",
     "module": "commonjs",
     "outDir": ".tmp/test"
   },
@@ -10,7 +10,7 @@
     "node_modules/@types"
   ],
   "filesGlob": [
-    "client/{app,components}/**/*.{spec,mock}.ts",
-    "client/test_typings/**/*.d.ts"
+    "src/{app,components}/**/*.{spec,mock}.ts",
+    "src/test_typings/**/*.d.ts"
   ]
 }

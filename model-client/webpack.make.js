@@ -6,7 +6,6 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
-var fs = require('fs');
 var path = require('path');
 
 module.exports = function makeWebpackConfig(options) {
@@ -187,9 +186,6 @@ module.exports = function makeWebpackConfig(options) {
 
     }]
   };
-
-    //TODO: TS Instrumenter
-
     /**
      * Plugins
      * Reference: http://webpack.github.io/docs/configuration.html#plugins

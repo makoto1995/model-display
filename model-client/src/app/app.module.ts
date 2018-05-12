@@ -1,7 +1,7 @@
-import {ApplicationRef, NgModule, Provider,} from '@angular/core';
+import {ApplicationRef, NgModule, Provider} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
-import {createInputTransfer, createNewHosts, removeNgStyles,} from '@angularclass/hmr';
+import {createInputTransfer, createNewHosts, removeNgStyles} from '@angularclass/hmr';
 
 import {RouterModule, Routes} from '@angular/router';
 import {AuthConfig, AuthHttp} from 'angular2-jwt';
@@ -29,7 +29,7 @@ let providers: Provider[] = [{
 
 const appRoutes: Routes = [{
   path: '',
-  redirectTo: '/home',
+  redirectTo: '/login',
   pathMatch: 'full'
 }];
 

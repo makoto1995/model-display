@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import 'chart.js';
-import 'rxjs/add/operator/map';
+
 
 @Component({
   selector: 'main',

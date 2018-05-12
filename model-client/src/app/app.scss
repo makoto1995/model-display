@@ -9,6 +9,12 @@ $fa-font-path: '/assets/fonts/font-awesome/';
  * App-wide Styles
  */
 
+ :root {
+   --input-padding-x: .75rem;
+   --input-padding-y: .75rem;
+ }
+
+
 .browserupgrade {
   margin: 0.2em 0;
   background: #ccc;
