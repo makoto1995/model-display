@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
-
+import {HttpClientModule, HttpClient} from '@angular/common/http';
 import {RouterModule, Routes} from '@angular/router';
 
 
@@ -24,13 +24,14 @@ const accountRoutes: Routes = [{
   imports: [
     FormsModule,
     BrowserModule,
+    HttpClientModule,
     RouterModule.forChild(accountRoutes),
   ],
   declarations: [
     LoginComponent,
     SignupComponent,
     SettingsComponent,
-  ],
+  ]
 })
 export class AccountModule {
 }

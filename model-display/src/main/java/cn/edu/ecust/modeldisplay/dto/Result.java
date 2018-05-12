@@ -1,9 +1,15 @@
 package cn.edu.ecust.modeldisplay.dto;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class Result<T> {
+    @JSONField(name = "success")
     private boolean success;
+    @JSONField(name = "data")
     private T data;
+    @JSONField(name = "token")
     private String token;
+    @JSONField(name = "error")
     private String error;
 
     public Result() {

@@ -2,7 +2,7 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
 import {AuthHttp} from 'angular2-jwt';
 import {HttpClient} from '@angular/common/http';
-import 'rxjs/add/operator/toPromise';
+
 import {safeCb} from '../util';
 import constants from '../../app/app.constants';
 
@@ -26,16 +26,14 @@ export class AuthService {
   @Output() currentUserChanged = new EventEmitter(true);
   userRoles = constants.userRoles || [];
   HttpClient;
-  AuthHttp;
 
-  static parameters = [HttpClient, AuthHttp];
+  static parameters = [HttpClient];
 
-  constructor(private http: HttpClient, private authHttp: AuthHttp) {
+  constructor(http: HttpClient) {
     this.HttpClient = http;
-    this.AuthHttp = authHttp;
 
     if (localStorage.getItem('id_token')) {
-      this.http.get<Result<User>>(`/api/users/me`, {
+      http.get<Result<User>>(`/api/users/me`, {
         observe: 'response',
         headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
       }).subscribe(

@@ -16,7 +16,7 @@ interface User {
 interface Result<T> {
   success: boolean;
   data: T;
-  token: string;
+  token?: string;
 }
 
 @Component({
@@ -24,7 +24,7 @@ interface Result<T> {
   template: require('./signup.html')
 })
 export class SignupComponent {
-  static parameters = [AuthService, Router];
+  static parameters = [AuthService, Router, HttpClient];
   user: User = {
     userEmail: '',
     userPassword: '',
@@ -43,17 +43,24 @@ export class SignupComponent {
     this.Router = router;
   }
 
-  register(user, event) {
-    event.preventDefault();
+  register(user) {
     this.submitted = true;
-    let body = JSON.stringify({userName: user.name, userEmail: user.email, userPassword: user.password});
-    this.client.post<Result<User>>('api/users/', body, {
+    let body = JSON.stringify({
+      email: user.email,
+      username: user.name,
+      password: user.password,
+      id: '',
+      role: ''
+    });
+    console.log(body);
+    this.client.post<Result<User>>('http://localhost:9000/users/', body, {
       observe: 'response',
       headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
     }).subscribe(
       res => {
+        console.log(res);
         if (res.body.success = false) {
-          this.errors = res.body.data;
+          this.errors = {serverSide: '注册失败!'};
           return;
         }
         localStorage.setItem('id_token', res.body.token);
@@ -66,24 +73,5 @@ export class SignupComponent {
         console.log(error.text());
       }
     );
-    // return this.AuthService.createUser({
-    //   userName: user.name,
-    //   userEmail: user.email,
-    //   userPassword: user.password
-    // }, null)
-    //   .then(() => {
-    //     // Account created, redirect to home
-    //     this.Router.navigateByUrl('/home');
-    //   })
-    //   .catch(err => {
-    //     err = err.data;
-    //     this.errors = {};
-    //     // Update validity of form fields that match the sequelize errors
-    //     if (err.name) {
-    //       err.fields.forEach(field => {
-    //         this.errors[field] = err.message;
-    //       });
-    //     }
-    //   });
   }
 }

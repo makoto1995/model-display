@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User[] index(User currentUser) {
         try {
-            if (currentUser.getRole() != 5) {
+            if (!currentUser.getRole().equals("admin")) {
                 throw new UserControlException("权限不足，操作非法，请刷新页面！");
             } else {
                 return userMapper.index();
@@ -39,9 +39,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void register(User user) {
         try {
-            if (userMapper.getUserByUserName(user.getUsername()) != null) {
+            if (userMapper.getUserByUserName(user.getUsername()) == null) {
                 throw new RegisterException("用户名重复！");
-            } else if (userMapper.getUserByEmail(user.getEmail()) != null) {
+            } else if (userMapper.getUserByEmail(user.getEmail()) == null) {
                 throw new RegisterException("Email重复！");
             } else {
                 userMapper.register(user);
@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(User currentUser, String id) {
         try {
-            if (currentUser.getRole() != 5) {
+            if (!currentUser.getRole().equals("admin")) {
                 throw new UserControlException("权限不足，操作非法，请刷新页面！");
             } else if (userMapper.getUserByUserID(id) == null) {
                 throw new UserControlException("数据库无相关记录，请刷新页面！");

@@ -27,7 +27,7 @@
             #{user.email},
             #{user.username},
             #{user.password},
-            1
+            'user'
         );
     </insert>
     <select id="getUserByEmail" resultType="cn.edu.ecust.modeldisplay.model.User" parameterType="String">

@@ -1,6 +1,5 @@
 package cn.edu.ecust.modeldisplay.model;
 
-import com.sun.istack.internal.Nullable;
 
 public class ModelDetail {
     private String modelName;
@@ -15,7 +14,7 @@ public class ModelDetail {
 
     }
 
-    public ModelDetail(String modelName, String modelType, @Nullable String modelWeight, @Nullable String modelHeight, @Nullable String modelWidth, @Nullable String modelDepth, @Nullable String modelCost) {
+    public ModelDetail(String modelName, String modelType, String modelWeight, String modelHeight, String modelWidth, String modelDepth, String modelCost) {
         this.modelName = modelName;
         this.modelType = modelType;
         this.modelWeight = modelWeight;

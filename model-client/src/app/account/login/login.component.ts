@@ -15,12 +15,13 @@ interface User {
 interface Result<T> {
   success: boolean;
   data: T;
-  token: string;
+  token?: string;
 }
 
 @Component({
   selector: 'login',
   template: require('./login.html'),
+  styles: [require('./login.scss')],
 })
 export class LoginComponent {
   user: User = {
@@ -34,14 +35,13 @@ export class LoginComponent {
   submitted = false;
   Router;
   AuthService;
-
+  static parameters = [AuthService, Router, HttpClient];
   constructor(public router: Router, public client: HttpClient, public authService: AuthService) {
     this.Router = router;
     this.AuthService = authService;
   }
 
-  login(event) {
-    event.preventDefault();
+  login() {
     let email = this.user.userEmail;
     let password = this.user.userPassword;
     let body = JSON.stringify({userEmail: email, userPassword: password});

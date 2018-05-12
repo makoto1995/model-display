@@ -1,11 +1,18 @@
 package cn.edu.ecust.modeldisplay.model;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class User {
+    @JSONField(name = "email")
     private String userEmail;
+    @JSONField(name = "username")
     private String userName;
+    @JSONField(name = "password")
     private String userPassword;
+    @JSONField(name = "id")
     private String userId;
-    private int userRole;
+    @JSONField(name = "role")
+    private String userRole;
 
     public User() {
 
@@ -17,11 +24,12 @@ public class User {
         this.userPassword = userPassword;
     }
 
-    public int getRole() {
+
+    public String getRole() {
         return userRole;
     }
 
-    public void setRole(int userRole) {
+    public void setRole(String userRole) {
         this.userRole = userRole;
     }
 

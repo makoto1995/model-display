@@ -13,13 +13,13 @@ import io.jsonwebtoken.impl.crypto.MacProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.security.Key;
 
-@Controller
+@RestController
+@CrossOrigin
 @RequestMapping("/users")
 public class UserController {
     private Key key = MacProvider.generateKey();
@@ -33,14 +33,20 @@ public class UserController {
 
     @PostMapping(value = "/login", produces = {"application/json; charset=utf-8"})
     @ResponseBody
-    public Result<User> login(@RequestParam("email") String email, @RequestParam("password") String password, HttpSession httpSession) {
+    public Result<User> login(@RequestParam("email") String email,
+                              @RequestParam("password") String password,
+                              HttpSession httpSession) {
         try {
             if (userService.getUserByEmail(email).getPassword().equals(password)) {
                 httpSession.setAttribute("currentUser", userService.getUserByEmail(email));
-                return new Result<>(true, userService.getUserByEmail(email), Jwts.builder()
-                        .setPayload(JSON.toJSONString(new _id(userService.getUserByEmail(email).getUserID(), String.valueOf(userService.getUserByEmail(email).getRole()))))
-                        .signWith(SignatureAlgorithm.HS512, key)
-                        .compact());
+                return new Result<>(true,
+                        userService.getUserByEmail(email),
+                        Jwts.builder()
+                                .setPayload(
+                                        JSON.toJSONString(new _id(userService.getUserByEmail(email).getUserID(),
+                                                String.valueOf(userService.getUserByEmail(email).getRole()))))
+                                .signWith(SignatureAlgorithm.HS512, key)
+                                .compact());
             }
             throw new LoginException("密码错误，请重新输入！");
         } catch (LoginException e1) {
@@ -58,10 +64,13 @@ public class UserController {
             return new Result<>(false, e1.getMessage());
         }
         httpSession.setAttribute("currentUser", userService.getUserByEmail(user.getEmail()));
-        return new Result<>(true, userService.getUserByEmail(user.getEmail()), Jwts.builder()
-                .setPayload(JSON.toJSONString(new _id(user.getUserID(), String.valueOf(user.getRole()))))
-                .signWith(SignatureAlgorithm.HS512, key)
-                .compact());
+        return new Result<>(true,
+                userService.getUserByEmail(user.getEmail()),
+                Jwts.builder()
+                        .setPayload(JSON.toJSONString(new _id(user.getUserID(),
+                                String.valueOf(user.getRole()))))
+                        .signWith(SignatureAlgorithm.HS512, key)
+                        .compact());
     }
 
     @GetMapping(value = "/me", produces = {"application/json; charset=utf-8"})
