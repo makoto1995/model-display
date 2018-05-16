@@ -1,13 +1,22 @@
 package cn.edu.ecust.modeldisplay.model;
 
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class ModelDetail {
+    @JSONField(name = "modelName")
     private String modelName;
+    @JSONField(name = "modelType")
     private String modelType;
+    @JSONField(name = "modelWeight")
     private String modelWeight;
+    @JSONField(name = "modelHeight")
     private String modelHeight;
+    @JSONField(name = "modelWidth")
     private String modelWidth;
+    @JSONField(name = "modelDepth")
     private String modelDepth;
+    @JSONField(name = "modelCost")
     private String modelCost;
 
     public ModelDetail() {

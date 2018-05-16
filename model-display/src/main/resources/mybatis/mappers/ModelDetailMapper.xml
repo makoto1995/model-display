@@ -3,24 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.ecust.modeldisplay.mapper.ModelDetailMapper">
-    <select id="listModelDetail" resultType="cn.edu.ecust.modeldisplay.model.ModelDetail">
-        SELECT
-            model_name,
-            model_type,
-            model_cost
-        FROM
-            TBL_MODEL_DETAIL
-        ORDER BY
-            model_name
-    </select>
-    <select id="listModelName" resultType="String">
-        SELECT
-            model_name
-        FROM
-        TBL_MODEL_DETAIL
-        ORDER BY
-            model_name
-    </select>
     <select id="getModelDetailByParam" resultType="cn.edu.ecust.modeldisplay.model.ModelDetail" parameterType="String">
         SELECT
             model_name,

@@ -51,7 +51,7 @@ export class NavbarComponent {
 
   logout() {
     let promise = this.AuthService.logout();
-    this.Router.navigateByUrl('/home');
+    this.Router.navigateByUrl('/login');
     return promise;
   }
 }

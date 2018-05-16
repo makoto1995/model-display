@@ -53,7 +53,7 @@ export class SignupComponent {
       role: ''
     });
     console.log(body);
-    this.client.post<Result<User>>('http://localhost:9000/users/', body, {
+    this.client.post<Result<User>>('/api/users/', body, {
       observe: 'response',
       headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
     }).subscribe(

@@ -6,9 +6,5 @@ import java.util.List;
 
 public interface ModelDetailService {
 
-    List<String> listModel();
-
-    List<ModelDetail> listModelDetail();
-
-    ModelDetail getDetail(String id);
+    ModelDetail getDetail(String name);
 }
