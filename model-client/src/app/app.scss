@@ -1,5 +1,8 @@
 $icon-font-path: '/assets/fonts/bootstrap/';
-@import '~bootstrap-sass/assets/stylesheets/bootstrap';
+@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap/scss/_navbar';
+@import '~bootstrap/scss/bootstrap-grid';
+@import '~bootstrap/scss/bootstrap-reboot';
 $fa-font-path: '/assets/fonts/font-awesome/';
 @import '~font-awesome/scss/font-awesome';
 
@@ -39,14 +42,14 @@ html, body {
   height: 100%;
 }
 
-html {
-  font-size: 14px;
-}
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
+// html {
+//   font-size: 1rem;
+// }
+// @media (min-width: 768px) {
+//   html {
+//     font-size: 1.25rem;
+//   }
+// }
 
 
 

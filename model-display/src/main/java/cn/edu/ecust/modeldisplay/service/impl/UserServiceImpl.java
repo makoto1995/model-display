@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User[] index(User currentUser) {
         try {
-            if (!currentUser.getRole().equals("admin")) {
+            if (!currentUser.getUserRole().equals("admin")) {
                 throw new UserControlException("权限不足，操作非法，请刷新页面！");
             } else {
                 return userMapper.index();
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
         try {
             if (userMapper.getUserByUserName(user.getUsername()) == null) {
                 throw new RegisterException("用户名重复！");
-            } else if (userMapper.getUserByEmail(user.getEmail()) == null) {
+            } else if (userMapper.getUserByEmail(user.getUserEmail()) == null) {
                 throw new RegisterException("Email重复！");
             } else {
                 userMapper.register(user);
@@ -69,12 +69,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserByUserID(String userID) {
+    public User getUserByUserId(String userID) {
         try {
-            if (userMapper.getUserByUserID(userID) == null) {
+            if (userMapper.getUserByUserId(userID) == null) {
                 throw new UserControlException("数据库无相关记录，请刷新页面！");
             } else {
-                return userMapper.getUserByUserID(userID);
+                return userMapper.getUserByUserId(userID);
             }
         } catch (UserControlException e1) {
             throw e1;
@@ -86,9 +86,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(User currentUser, String id) {
         try {
-            if (!currentUser.getRole().equals("admin")) {
+            if (!currentUser.getUserRole().equals("admin")) {
                 throw new UserControlException("权限不足，操作非法，请刷新页面！");
-            } else if (userMapper.getUserByUserID(id) == null) {
+            } else if (userMapper.getUserByUserId(id) == null) {
                 throw new UserControlException("数据库无相关记录，请刷新页面！");
             } else {
                 userMapper.deleteUser(id);
@@ -103,9 +103,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void changePassword(String userID, String oldPassword, String newPassword) {
         try {
-            if (userMapper.getUserByUserID(userID) == null) {
+            if (userMapper.getUserByUserId(userID) == null) {
                 throw new UserControlException("数据库无相关记录，非法操作！");
-            } else if (!userMapper.getUserByUserID(userID).getPassword().equals(oldPassword)) {
+            } else if (!userMapper.getUserByUserId(userID).getUserPassword().equals(oldPassword)) {
                 throw new UserControlException("密码错误，请重新输入！");
             } else {
                 userMapper.changePassword(userID, newPassword);

@@ -4,10 +4,9 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {AuthService} from '../../../components/auth/auth.service';
 
-
 interface User {
   userEmail: string;
-  userName: string;
+  username: string;
   userPassword: string;
   userId: string;
   userRole: string;
@@ -16,7 +15,7 @@ interface User {
 interface Result<T> {
   success: boolean;
   data: T;
-  token?: string;
+  token: string;
 }
 
 @Component({
@@ -24,11 +23,10 @@ interface Result<T> {
   template: require('./signup.html')
 })
 export class SignupComponent {
-  static parameters = [AuthService, Router, HttpClient];
   user: User = {
     userEmail: '',
     userPassword: '',
-    userName: '',
+    username: '',
     userId: '',
     userRole: ''
   };
@@ -37,7 +35,7 @@ export class SignupComponent {
   submitted = false;
   AuthService;
   Router;
-
+  static parameters = [AuthService, Router, HttpClient];
   constructor(_AuthService_: AuthService, router: Router, public client: HttpClient) {
     this.AuthService = _AuthService_;
     this.Router = router;
@@ -46,14 +44,14 @@ export class SignupComponent {
   register(user) {
     this.submitted = true;
     let body = JSON.stringify({
-      email: user.email,
+      userEmail: user.email,
       username: user.name,
-      password: user.password,
-      id: '',
-      role: ''
+      userPassword: user.password,
+      userId: '',
+      userRole: ''
     });
     console.log(body);
-    this.client.post<Result<User>>('/api/users/', body, {
+    this.client.post<Result<User>>('http://localhost:9000/users/', body, {
       observe: 'response',
       headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
     }).subscribe(

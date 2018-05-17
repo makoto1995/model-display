@@ -1,31 +1,40 @@
-<div class="navbar navbar-default navbar-static-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button class="navbar-toggle" type="button" (click)="isCollapsed = !isCollapsed">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a href="/" class="navbar-brand">展示系统</a>
-    </div>
-    <div  class="navbar-collapse collapse" id="navbar-main">
-      <ul class="nav navbar-nav">
-        <li [hidden]="!isLoggedIn" *ngFor="let item of menu" routerLinkActive="active">
-            <a routerLink="{{item.link}}">{{item.title}}</a>
-        </li>
-        <li [hidden]="!isAdmin" routerLinkActive="active">
-          <a routerLink="/admin">Admin</a>
-        </li>
-      </ul>
-
-      <ul class="nav navbar-nav navbar-right">
-        <li [hidden]="isLoggedIn" routerLinkActive="active"><a routerLink="/signup">注册</a></li>
-        <li [hidden]="isLoggedIn" routerLinkActive="active"><a routerLink="/login">登陆</a></li>
-        <li [hidden]="!isLoggedIn"><p class="navbar-text">你好，{{ currentUser.userName }}</p> </li>
-        <li [hidden]="!isLoggedIn" routerLinkActive="active"><a routerLink="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
-        <li [hidden]="!isLoggedIn"><a (click)="logout()">注销</a></li>
-      </ul>
-    </div>
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+  <a href="/" class="navbar-brand">展示系统</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse">
+    <ul class="mr-auto navbar-nav">
+      <li [hidden]="!isLoggedIn" *ngFor="let item of menu" routerLinkActive="active" class="nav-item active">
+        <a class="nav-link" routerLink="{{item.link}}">{{item.title}}</a>
+      </li>
+      <li [hidden]="!isAdmin" routerLinkActive="active" class="nav-item active">
+        <a class="nav-link" routerLink="/admin">Admin</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-md-0">
+      <a routerLink="/signup">
+        <button class="btn btn-outline-success my-2 my-sm-0 mx-2" [hidden]="isLoggedIn" routerLinkActive="active">
+          注册
+        </button>
+      </a>
+      <a routerLink="/login">
+        <button class="btn btn-success my-2 my-sm-0 mx-2" [hidden]="isLoggedIn" routerLinkActive="active">
+          登陆
+        </button>
+      </a>
+      <p class="navbar-text  my-2 my-sm-0 mx-2" [hidden]="!isLoggedIn">你好，{{ currentUser.username }}</p>
+      <div class=" my-2 my-sm-0 mx-2">
+        <a routerLink="/settings" [hidden]="!isLoggedIn" routerLinkActive="active">
+          <i-settings></i-settings>
+        </a>
+      </div>
+      <a (click)="logout()">
+        <button class="btn btn-danger my-2 my-sm-0 mx-2" [hidden]="!isLoggedIn">
+          注销
+        </button>
+      </a>
+    </form>
   </div>
-</div>
+</nav>

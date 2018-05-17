@@ -12,7 +12,7 @@ interface User {
 interface Result<T> {
   success: boolean;
   data: T;
-  token?: string;
+  token: string;
 }
 
 @Component({

@@ -19,17 +19,22 @@ public class Result<T> {
     public Result(boolean success, T data) {
         this.success = success;
         this.data = data;
+        this.token = "";
+        this.error = "";
     }
 
     public Result(boolean success, T data, String token) {
         this.success = success;
         this.data = data;
         this.token = token;
+        this.error = "";
     }
 
     public Result(boolean success, String error) {
         this.success = success;
+        this.data = null;
         this.error = error;
+        this.token = null;
     }
 
     @Override
@@ -51,6 +56,10 @@ public class Result<T> {
         return success;
     }
 
+    public boolean getSuccess() {
+        return success;
+    }
+
     public void setSuccess(boolean success) {
         this.success = success;
     }
@@ -69,5 +78,13 @@ public class Result<T> {
 
     public void setData(T data) {
         this.data = data;
+    }
+
+    public void setToken(String token){
+        this.token = token;
+    }
+
+    public String getToken() {
+        return token;
     }
 }

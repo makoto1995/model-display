@@ -18,6 +18,7 @@ interface ModelDetail {
 interface Result<T> {
   success: boolean;
   data: T;
+  error?: string;
   token?: string;
 }
 
@@ -33,6 +34,7 @@ export class DisplayComponent {
   isConfigured = false;
 
   public constructor(private ngZone: NgZone, public client: HttpClient) {
+    $('#wrapper').toggleClass('toggled');
   }
 
 
@@ -52,6 +54,7 @@ export class DisplayComponent {
       res => {
         if (res.body.success = false) {
           alert('无该模型!');
+          alert(res.body.error);
           return;
         }
         this.setModelInfo(res.body.data);
@@ -82,5 +85,16 @@ export class DisplayComponent {
 
   setModelInfo(modelDetail: ModelDetail) {
     this.gameInstance.SendMessage('Plane', 'SetModelInfo', JSON.stringify(modelDetail));
+  }
+
+  changeCarState() {
+    this.gameInstance.SendMessage('Plane', 'ChangeCarState');
+  }
+
+  sendAlert() {
+    this.gameInstance.SendMessage('Plane', 'AlertPart', JSON.stringify({
+      armName: 'Arm0-1',
+      partName: 'Part2',
+    }));
   }
 }

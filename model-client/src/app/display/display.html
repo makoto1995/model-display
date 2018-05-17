@@ -1,49 +1,66 @@
 <div class="container-fluid">
-  <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-    <div class="sidebar-sticky">
-      <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-        <span>吊装部门/span>
-      </h6>
-      <ul class="nav flex-column">
-        <li class="nav-item">
-          <a class="nav-link active" href="#" onclick="changeProductLine()">
-            <i-layers></i-layers>
-            一号生产线
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" onclick="changeProductLine()">
-            <i-layers></i-layers>
-            二号生产线
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" onclick="changeProductLine()">
-            <i-layers></i-layers>
-            三号生产线
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" onclick="changeProductLine()">
-            <i-layers></i-layers>
-            总装生产线
-          </a>
-        </li>
-      </ul>
+  <div class="row">
+    <nav class="col-md-2 d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>吊装部门</span>
+        </h6>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="#" (click)="changeProductLine()">
+              <i-layers></i-layers>
+              一号生产线
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" (click)="changeProductLine()">
+              <i-layers></i-layers>
+              二号生产线
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" (click)="changeProductLine()">
+              <i-layers></i-layers>
+              三号生产线
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" (click)="changeProductLine()">
+              <i-layers></i-layers>
+              总装生产线
+            </a>
+          </li>
+        </ul>
 
-      <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-        <span>涂装部门</span>
-      </h6>
-      <ul class="nav flex-column mb-2">
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            <i-layers></i-layers>
-            待后续实现
-          </a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-  <div id="gameContainer" style="width: auto; height: auto;"></div>
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>涂装部门</span>
+        </h6>
+        <ul class="nav flex-column mb-2">
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i-layers></i-layers>
+              待后续实现
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">现场展示</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+            <button class="btn btn-sm btn-outline-secondary" (click)="changeCarState()">下一状态</button>
+            <button class="btn btn-sm btn-outline-secondary" (click)="sendAlert()">中断运行</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="gameContainer" class="my-0 w-100" style="width: 980px; height: inherit"></div>
+
+    </main>
+
+  </div>
+
 </div>

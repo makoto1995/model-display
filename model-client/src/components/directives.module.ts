@@ -1,6 +1,6 @@
+import { IconsModule } from './icons.module';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-
 
 import {RouterModule} from '@angular/router';
 
@@ -15,6 +15,7 @@ import {FooterComponent} from './footer/footer.component';
         CommonModule,
         AuthModule,
         RouterModule,
+        IconsModule
     ],
     declarations: [
         NavbarComponent,

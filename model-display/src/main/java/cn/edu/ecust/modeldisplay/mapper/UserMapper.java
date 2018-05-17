@@ -10,7 +10,7 @@ public interface UserMapper {
 
     User getUserByEmail(@Param("email") String email);
 
-    User getUserByUserID(@Param("userID") String id);
+    User getUserByUserId(@Param("userID") String id);
 
     User getUserByUserName(@Param("userName") String username);
 

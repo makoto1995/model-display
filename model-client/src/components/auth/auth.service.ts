@@ -12,17 +12,30 @@ interface Result<T> {
   data: T;
   token: string;
 }
-class User {
-  userId = '';
-  userName = '';
-  userEmail = '';
-  userPassword = '';
-  userRole = '';
+interface User {
+  userEmail: string;
+  userName: string;
+  userPassword: string;
+  userId: string;
+  userRole: string;
 }
+// class User {
+//   userId = '';
+//   userName = '';
+//   userEmail = '';
+//   userPassword = '';
+//   userRole = '';
+// }
 
 @Injectable()
 export class AuthService {
-  _currentUser: User = new User();
+  _currentUser: User = {
+    userEmail: '',
+    userPassword: '',
+    userName: '',
+    userId: '',
+    userRole: ''
+  };
   @Output() currentUserChanged = new EventEmitter(true);
   userRoles = constants.userRoles || [];
   HttpClient;
@@ -33,7 +46,7 @@ export class AuthService {
     this.HttpClient = http;
 
     if (localStorage.getItem('id_token')) {
-      http.get<Result<User>>(`/api/users/me`, {
+      http.get<Result<User>>('http://localhost:9000/users/me', {
         observe: 'response',
         headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
       }).subscribe(
@@ -71,7 +84,7 @@ export class AuthService {
    * @param  {Object}   user     - login info
    * @return {Promise}
    */
-  login(user: User) {
+  public login(user: User) {
     this.currentUser = user;
     localStorage.setItem('user', JSON.stringify(user));
     return user;
@@ -81,10 +94,16 @@ export class AuthService {
    * Delete access token and user info
    * @return {Promise}
    */
-  logout() {
+  public logout() {
     localStorage.removeItem('user');
     localStorage.removeItem('id_token');
-    this.currentUser = new User();
+    this.currentUser = {
+      userEmail: '',
+      userPassword: '',
+      userName: '',
+      userId: '',
+      userRole: ''
+    };
     return Promise.resolve();
   }
 
@@ -115,6 +134,9 @@ export class AuthService {
    */
   isLoggedIn(callback?) {
     let is = !!this.currentUser.userId;
+    console.log(this.currentUser.userId);
+    console.log((is) ? 1 : 0);
+    console.log(this.currentUser);
     safeCb(callback)(is);
     return Promise.resolve(is);
   }

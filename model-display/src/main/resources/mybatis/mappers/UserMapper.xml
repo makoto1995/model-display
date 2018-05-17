@@ -5,24 +5,24 @@
 <mapper namespace="cn.edu.ecust.modeldisplay.mapper.UserMapper">
     <select id="index" resultType="cn.edu.ecust.modeldisplay.model.User">
         SELECT
-            user_id,
-            user_email,
-            user_name,
-            user_password,
-            user_role
+            userId,
+            userEmail,
+            userName,
+            userPassword,
+            userRole
         FROM
             TBL_USERS
         ORDER BY
-            user_id;
+            userId;
     </select>
     <insert id="register" parameterType="cn.edu.ecust.modeldisplay.model.User">
         INSERT INTO
             tbl_users
             (
-                user_email,
-                user_name,
-                user_password,
-                user_role
+                userEmail,
+                userName,
+                userPassword,
+                userRole
             ) VALUES (
             #{user.email},
             #{user.username},
@@ -32,52 +32,52 @@
     </insert>
     <select id="getUserByEmail" resultType="cn.edu.ecust.modeldisplay.model.User" parameterType="String">
         SELECT
-            user_id,
-            user_email,
-            user_name,
-            user_password,
-            user_role
+            userId,
+            userEmail,
+            userName,
+            userPassword,
+            userRole
         FROM
             TBL_USERS
         WHERE
-            user_email = #{email};
+            userEmail = #{email};
     </select>
     <select id="getUserByUserID" resultType="cn.edu.ecust.modeldisplay.model.User" parameterType="String">
         SELECT
-            user_id,
-            user_email,
-            user_name,
-            user_password,
-            user_role
+            userId,
+            userEmail,
+            userName,
+            userPassword,
+            userRole
         FROM
             TBL_USERS
         WHERE
-            user_id = #{userID};
+            userId = #{userID};
     </select>
     <select id="getUserByUserName" resultType="cn.edu.ecust.modeldisplay.model.User" parameterType="String">
         SELECT
-            user_id,
-            user_email,
-            user_name,
-            user_password,
-            user_role
+            userId,
+            userEmail,
+            userName,
+            userPassword,
+            userRole
         FROM
             TBL_USERS
         WHERE
-            user_name = #{userName};
+            userName = #{userName};
     </select>
     <delete id="deleteUser" parameterType="String">
         DELETE from
             tbl_users
         where
-            user_id = #{id};
+            userId = #{id};
     </delete>
     <update id="changePassword" parameterType="String">
         UPDATE
             tbl_users
         SET
-            user_password = #{newPassword}
+            userPassword = #{newPassword}
         WHERE
-            user_id = #{userID};
+            userId = #{userID};
     </update>
 </mapper>

@@ -9,7 +9,7 @@ public interface UserService {
 
     User getUserByEmail(String email);
 
-    User getUserByUserID(String id);
+    User getUserByUserId(String id);
 
     void deleteUser(User currentUser, String id);
 

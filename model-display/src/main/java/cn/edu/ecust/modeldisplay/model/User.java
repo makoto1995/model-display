@@ -3,15 +3,15 @@ package cn.edu.ecust.modeldisplay.model;
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class User {
-    @JSONField(name = "email")
+    @JSONField(name = "userEmail")
     private String userEmail;
-    @JSONField(name = "username")
+    @JSONField(name = "userName")
     private String userName;
-    @JSONField(name = "password")
+    @JSONField(name = "userPassword")
     private String userPassword;
-    @JSONField(name = "id")
+    @JSONField(name = "userId")
     private String userId;
-    @JSONField(name = "role")
+    @JSONField(name = "userRole")
     private String userRole;
 
     public User() {
@@ -25,27 +25,27 @@ public class User {
     }
 
 
-    public String getRole() {
+    public String getUserRole() {
         return userRole;
     }
 
-    public void setRole(String userRole) {
+    public void setUserRole(String userRole) {
         this.userRole = userRole;
     }
 
-    public String getEmail() {
+    public String getUserEmail() {
         return userEmail;
     }
 
-    public void setEmail(String userEmail) {
+    public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
     }
 
-    public String getPassword() {
+    public String getUserPassword() {
         return userPassword;
     }
 
-    public void setPassword(String userPassword) {
+    public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
     }
 
@@ -57,11 +57,11 @@ public class User {
         this.userName = userName;
     }
 
-    public String getUserID() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserID(String userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
