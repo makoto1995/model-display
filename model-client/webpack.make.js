@@ -76,6 +76,7 @@ module.exports = function makeWebpackConfig(options) {
       unityLoader: path.resolve(__dirname, 'src/assets/Build/UnityLoader.js'),
       utils: path.resolve(__dirname, 'src/assets/utils.js'),
       jquery: 'jquery/dist/jquery.min.js',
+      stompjs: 'stompjs/lib/stomp.min.js',
       chart: 'chart.js/dist/Chart.bundle.min.js'
     }
   };

@@ -1,6 +1,8 @@
 $icon-font-path: '/assets/fonts/bootstrap/';
 @import '~bootstrap/scss/bootstrap';
 @import '~bootstrap/scss/_navbar';
+@import '~bootstrap/scss/_nav';
+@import '~bootstrap/scss/_mixins';
 @import '~bootstrap/scss/bootstrap-grid';
 @import '~bootstrap/scss/bootstrap-reboot';
 $fa-font-path: '/assets/fonts/font-awesome/';

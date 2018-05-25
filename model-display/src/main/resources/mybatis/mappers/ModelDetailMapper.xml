@@ -5,16 +5,16 @@
 <mapper namespace="cn.edu.ecust.modeldisplay.mapper.ModelDetailMapper">
     <select id="getModelDetailByParam" resultType="cn.edu.ecust.modeldisplay.model.ModelDetail" parameterType="String">
         SELECT
-            model_name,
-            model_type,
-            model_cost,
-            model_height,
-            model_weight,
-            model_depth,
-            model_width
+            modelName,
+            modelType,
+            modelCost,
+            modelHeight,
+            modelWeight,
+            modelDepth,
+            modelWidth
         FROM
         TBL_MODEL_DETAIL
         WHERE
-            model_name = #{name}
+            modelName = #{name}
     </select>
 </mapper>

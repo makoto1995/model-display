@@ -33,59 +33,59 @@ public class ModelDetail {
         this.modelCost = modelCost;
     }
 
-    public String getName() {
+    public String getModelName() {
         return modelName;
     }
 
-    public void setName(String modelName) {
+    public void setModelName(String modelName) {
         this.modelName = modelName;
     }
 
-    public String getType() {
+    public String getModelType() {
         return modelType;
     }
 
-    public void setType(String modelType) {
+    public void setModelType(String modelType) {
         this.modelType = modelType;
     }
 
-    public String getHeight() {
+    public String getModelHeight() {
         return modelHeight;
     }
 
-    public void setHeight(String modelHeight) {
+    public void setModelHeight(String modelHeight) {
         this.modelHeight = modelHeight;
     }
 
-    public String getWeight() {
+    public String getModelWeight() {
         return modelWeight;
     }
 
-    public void setWeight(String modelWeight) {
+    public void setModelWeight(String modelWeight) {
         this.modelWeight = modelWeight;
     }
 
-    public String getWidth() {
+    public String getModelWidth() {
         return modelWidth;
     }
 
-    public void setWidth(String modelWidth) {
+    public void setModelWidth(String modelWidth) {
         this.modelWidth = modelWidth;
     }
 
-    public String getDepth() {
+    public String getModelDepth() {
         return modelDepth;
     }
 
-    public void setDepth(String modelDepth) {
+    public void setModelDepth(String modelDepth) {
         this.modelDepth = modelDepth;
     }
 
-    public String getCost() {
+    public String getModelCost() {
         return modelCost;
     }
 
-    public void setCost(String modelCost) {
+    public void setModelCost(String modelCost) {
         this.modelCost = modelCost;
     }
 

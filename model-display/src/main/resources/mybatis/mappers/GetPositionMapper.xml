@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.ecust.modeldisplay.mapper.GetPositionMapper">
+    <select id="getPositions" resultType="cn.edu.ecust.modeldisplay.model.Positions" parameterType="int">
+        SELECT
+            joint1,
+            joint2,
+            joint3,
+            joint4,
+            joint5
+        FROM
+            tbl_positions
+        WHERE
+            id = #{counter}
+    </select>
+</mapper>

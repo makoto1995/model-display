@@ -125,15 +125,22 @@ public class UserController {
 
     @PutMapping(value = "/{id}/password", produces = {"application/json; charset=utf-8"})
     @ResponseBody
-    public Result<User> changePassword(@PathVariable("id") String id, @RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword, HttpSession httpSession) {
+    public Result<User> changePassword(@PathVariable("id") String id, @RequestBody _passwords passwords, HttpSession httpSession) {
         try {
-            userService.changePassword(id, oldPassword, newPassword);
+            userService.changePassword(id, passwords.oldPassword, passwords.newPassword);
             httpSession.setAttribute("user", userService.getUserByUserId(id));
             return new Result<>(true, userService.getUserByUserId(id));
         } catch (UserControlException e1) {
             logger.error(e1.getMessage(), e1);
             return new Result<>(false, e1.getMessage());
         }
+    }
+
+    public final static class _passwords{
+        @JSONField(name = "oldPassword")
+        public String oldPassword;
+        @JSONField(name = "newPassword")
+        public String newPassword;
     }
 
     public final static class _loginInfo{
@@ -146,7 +153,6 @@ public class UserController {
     private final static class _id {
         public String id;
         public String role;
-
         public _id(String id, String role) {
             this.id = id;
             this.role = role;

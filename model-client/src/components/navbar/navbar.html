@@ -1,5 +1,5 @@
-<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
-  <a href="/" class="navbar-brand">展示系统</a>
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+  <a href="/" class="navbar-brand">工业三维模型展示系统</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
     aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -24,7 +24,7 @@
           登陆
         </button>
       </a>
-      <p class="navbar-text  my-2 my-sm-0 mx-2" [hidden]="!isLoggedIn">你好，{{ currentUser.username }}</p>
+      <p class="navbar-text  my-2 my-sm-0 mx-2" [hidden]="!isLoggedIn">你好，{{ currentUser.userName }}</p>
       <div class=" my-2 my-sm-0 mx-2">
         <a routerLink="/settings" [hidden]="!isLoggedIn" routerLinkActive="active">
           <i-settings></i-settings>

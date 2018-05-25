@@ -11,6 +11,7 @@ interface Result<T> {
   success: boolean;
   data: T;
   token: string;
+  error: string;
 }
 interface User {
   userEmail: string;
@@ -51,6 +52,10 @@ export class AuthService {
         headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
       }).subscribe(
         res => {
+          if (res.body.success === false) {
+            console.log(res.body.error);
+            throw res.body.error;
+          }
           this.currentUser = res.body.data;
         },
         error => {

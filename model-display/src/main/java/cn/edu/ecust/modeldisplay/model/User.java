@@ -49,11 +49,11 @@ public class User {
         this.userPassword = userPassword;
     }
 
-    public String getUsername() {
+    public String getUserName() {
         return userName;
     }
 
-    public void setUsername(String userName) {
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 

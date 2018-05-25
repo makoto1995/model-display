@@ -7,39 +7,32 @@
         </h6>
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link active" href="#" (click)="changeProductLine()">
-              <i-layers></i-layers>
+            <a id="productLine1" class="nav-link" [ngClass]="{active: currentProductLine == 1}" href="javascript:void(0);" (click)="changeProductLine(1)">
+              <i-layers class="feather"></i-layers>
               一号生产线
               <span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" (click)="changeProductLine()">
-              <i-layers></i-layers>
+            <a id="productLine2" class="nav-link" [ngClass]="{active: currentProductLine == 2}" href="javascript:void(0);" (click)="changeProductLine(2)">
+              <i-layers class="feather"></i-layers>
               二号生产线
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" (click)="changeProductLine()">
-              <i-layers></i-layers>
-              三号生产线
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" (click)="changeProductLine()">
-              <i-layers></i-layers>
+            <a id="productLineFinal" class="nav-link" href="javascript:void(0);" (click)="changeProductLineFinal()">
+              <i-layers class="feather"></i-layers>
               总装生产线
             </a>
           </li>
         </ul>
-
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
           <span>涂装部门</span>
         </h6>
         <ul class="nav flex-column mb-2">
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i-layers></i-layers>
+            <a class="nav-link" href="javascript:void(0);">
+              <i-layers class="feather"></i-layers>
               待后续实现
             </a>
           </li>
@@ -52,6 +45,7 @@
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group mr-2">
             <button class="btn btn-sm btn-outline-secondary" (click)="changeCarState()">下一状态</button>
+            <button class="btn btn-sm btn-outline-secondary" (click)="reverseAlert()">恢复运行</button>
             <button class="btn btn-sm btn-outline-secondary" (click)="sendAlert()">中断运行</button>
           </div>
         </div>

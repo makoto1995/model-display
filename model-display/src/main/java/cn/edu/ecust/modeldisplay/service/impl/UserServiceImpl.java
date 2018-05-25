@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void register(User user) {
         try {
-            if (userMapper.getUserByUserName(user.getUsername()) == null) {
+            if (userMapper.getUserByUserName(user.getUserName()) == null) {
                 throw new RegisterException("用户名重复！");
             } else if (userMapper.getUserByEmail(user.getUserEmail()) == null) {
                 throw new RegisterException("Email重复！");

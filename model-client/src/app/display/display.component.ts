@@ -1,7 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Message } from '@stomp/stompjs';
+import { StompService } from '@stomp/ng2-stompjs';
 import 'unityLoader';
 import * as $ from 'jquery';
+import { Subscription } from 'rxjs/Subscription';
 
 declare const UnityLoader;
 
@@ -13,6 +17,10 @@ interface ModelDetail {
   modelWidth: string;
   modelDepth: string;
   modelCost: string;
+}
+
+interface PositionMessage {
+  position: number[];
 }
 
 interface Result<T> {
@@ -27,36 +35,37 @@ interface Result<T> {
   template: require('./display.html'),
   styles: [require('./display.scss')],
 })
-export class DisplayComponent {
-  static parameters = [NgZone, HttpClient];
+export class DisplayComponent implements OnInit, OnDestroy {
+  private subscription: Subscription;
+  private testSubscription: Subscription;
+  public messages: Observable<Message>;
+  public testMessage: Observable<Message>;
+  public subscribed = false;
+  static parameters = [StompService, NgZone, HttpClient];
   public gameInstance: any;
   currentProductLine = '1';
-  isConfigured = false;
+  isLoaded = false;
 
-  public constructor(private ngZone: NgZone, public client: HttpClient) {
-    $('#wrapper').toggleClass('toggled');
+  public constructor(private _stompService: StompService, private ngZone: NgZone, public client: HttpClient) {
+    (window as any).communication = (window as any).communication || {};
+    (window as any).communication.getModelInfo = this.getModelInfo.bind(this);
+    (window as any).communication.startup = this.startup.bind(this);
   }
-
-
   public getModelInfo(name: string) {
-    if (!this.isConfigured) {
-      this.isConfigured = true;
-      (window as any).communication = (window as any).communication || {};
-      (window as any).communication.publicFunc = this.PubFunc.bind(this);
-    }
     let body = JSON.stringify({
       modelName: name
     });
-    this.client.post<Result<ModelDetail>>('/api/model/', body, {
+    this.client.post<Result<ModelDetail>>('http://localhost:9000/model/', body, {
       observe: 'response',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
     }).subscribe(
       res => {
-        if (res.body.success = false) {
-          alert('无该模型!');
-          alert(res.body.error);
+        if (res.body.success === false) {
+          console.log('无该模型!');
+          console.log(res.body.error);
           return;
         }
+        console.log(res.body.data);
         this.setModelInfo(res.body.data);
       },
       error => {
@@ -66,21 +75,99 @@ export class DisplayComponent {
     );
   }
 
-  public PubFunc(input: string) {
-    this.ngZone.run(() => alert(input));
-  }
-
   public ngOnInit(): void {
     this.init();
+    this.subscribe();
+  }
+
+  startup() {
+    this.client.post('http://localhost:9000/arms/startup', JSON.stringify({
+      productLineNum: 1,
+      productLineArms: 10
+    }), {
+        observe: 'response',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+      }).subscribe(res => {
+        console.log(res);
+      });
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe();
   }
 
   private init() {
     $.getScript('assets/Build/UnityLoader.js').done(() =>
       this.gameInstance = UnityLoader.instantiate('gameContainer', 'assets/Build/DisplayBuild.json'));
+
   }
 
-  changeProductLine() {
-    this.gameInstance.SendMessage();
+  public subscribe() {
+    console.log(this.subscribed);
+    this.messages = this._stompService.subscribe('/topic/positions');
+    this.subscription = this.messages.subscribe(this.on_next);
+    this.subscribed = true;
+  }
+
+  public unsubscribe() {
+    if (!!!this.subscribed) {
+      return;
+    }
+    this.subscription.unsubscribe();
+    this.subscription = null;
+    this.messages = null;
+    this.subscribed = false;
+  }
+
+  public on_next = (message: Message) => {
+    console.log(message);
+    var positionMessages: PositionMessage[] = JSON.parse(message.body);
+    console.log(positionMessages[0].position[0]);
+    this.gameInstance.SendMessage('Plane', 'MoveArms', JSON.stringify({
+      armName: 'Arm0-1',
+      angles: positionMessages[0].position
+    }));
+    this.gameInstance.SendMessage('Plane', 'MoveArms', JSON.stringify({
+      armName: 'Arm1-1',
+      angles: positionMessages[1].position
+    }));
+    this.gameInstance.SendMessage('Plane', 'MoveArms', JSON.stringify({
+      armName: 'Arm2-1',
+      angles: positionMessages[2].position
+    }));
+    this.gameInstance.SendMessage('Plane', 'MoveArms', JSON.stringify({
+      armName: 'Arm1-2',
+      angles: positionMessages[3].position
+    }));
+    this.gameInstance.SendMessage('Plane', 'MoveArms', JSON.stringify({
+      armName: 'Arm2-2',
+      angles: positionMessages[4].position
+    }));
+    this.gameInstance.SendMessage('Plane', 'MoveArms', JSON.stringify({
+      armName: 'Arm1-3',
+      angles: positionMessages[5].position
+    }));
+    this.gameInstance.SendMessage('Plane', 'MoveArms', JSON.stringify({
+      armName: 'Arm2-3',
+      angles: positionMessages[6].position
+    }));
+    this.gameInstance.SendMessage('Plane', 'MoveArms', JSON.stringify({
+      armName: 'Arm1-4',
+      angles: positionMessages[7].position
+    }));
+    this.gameInstance.SendMessage('Plane', 'MoveArms', JSON.stringify({
+      armName: 'Arm2-4',
+      angles: positionMessages[8].position
+    }));
+    this.gameInstance.SendMessage('Plane', 'MoveArms', JSON.stringify({
+      armName: 'Arm0-2',
+      angles: positionMessages[9].position
+    }));
+  }
+
+  changeProductLine(productLineNum: string) {
+    this.currentProductLine = productLineNum;
+    this.gameInstance.SendMessage('Plane', 'ChangeProductLine', productLineNum.toString());
   }
 
   setModelInfo(modelDetail: ModelDetail) {
@@ -92,7 +179,33 @@ export class DisplayComponent {
   }
 
   sendAlert() {
+    this.client.post('http://localhost:9000/arms/alert', JSON.stringify({
+      messageType: 0,
+      alertArm: 'Arm0-1',
+      alertPart: 'Part2'
+    }), {
+        observe: 'response',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+      }).subscribe(res => {
+        console.log(res);
+      });
     this.gameInstance.SendMessage('Plane', 'AlertPart', JSON.stringify({
+      armName: 'Arm0-1',
+      partName: 'Part2',
+    }));
+  }
+  reverseAlert() {
+    this.client.post('http://localhost:9000/arms/alert', JSON.stringify({
+      messageType: 1,
+      alertArm: 'Arm0-1',
+      alertPart: 'Part2'
+    }), {
+        observe: 'response',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+      }).subscribe(res => {
+        console.log(res);
+      });
+    this.gameInstance.SendMessage('Plane', 'ReversePartAlert', JSON.stringify({
       armName: 'Arm0-1',
       partName: 'Part2',
     }));
