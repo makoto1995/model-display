@@ -1,20 +1,46 @@
-.trash { color:rgb(209, 91, 71); }
+.trash {
+  color: rgb(209, 91, 71);
+}
+
+.feather {
+  width: 20px;
+  height: 20px;
+  vertical-align: text-bottom;
+}
+
+.admin {
+	color: rgb(50,255,50);
+}
+
+.manager {
+  color: rgb(255, 50, 50);
+}
+
+.user {
+  color: rgb(0, 0, 0);
+}
 
 .user-list {
-	li {
-		display: flex;
-		border: none;
-		border-bottom: 1px lightgray solid;
-		margin-bottom: 0;
-		&:last-child { border-bottom: none; }
-
-		.user-info {
-			flex-grow: 1;
-		}
-		.trash {
-			display: flex;
-			align-items: center;
-			text-decoration: none;
-		}
-	}
+  li {
+    border: none;
+    border-bottom: 1px lightgray solid;
+    margin-bottom: 0;
+    &:last-child {
+      border-bottom: none;
+    }
+    form {
+      .form-label-group {
+        display: inline;
+      }
+      display: flex;
+      .user-info {
+        flex-grow: 1;
+      }
+      .trash {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+      }
+    }
+  }
 }

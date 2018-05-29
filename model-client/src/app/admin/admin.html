@@ -1,11 +1,37 @@
 <div class="container">
   <ul class="list-group user-list">
     <li class="list-group-item" *ngFor="let user of users">
-      <div class="user-info">
-          <strong>{{user.userName}}</strong><br>
+      <form class="setUsersForm">
+        <div class="user-info" [ngSwitch]="user.userRole">
+          <i-user class="feather admin" *ngSwitchCase="'admin'">
+          </i-user>
+          <i-user class="feather manager" *ngSwitchCase="'manager'">
+          </i-user>
+          <i-user class="feather user" *ngSwitchCase="'user'">
+          </i-user>
+          <strong>{{user.userName}}</strong>
+          <br>
           <span class="text-muted">{{user.userEmail}}</span>
-      </div>
-        <a (click)="delete(user)" class="trash"><span class="fa fa-trash fa-2x"></span></a>
+        </div>
+        <div class="btn-group mx-4" dropdown [isDisabled]="user.userRole==='admin'">
+          <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle" aria-controls="dropdown-basic">
+            更改权限为
+            <span class="caret"></span>
+          </button>
+          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+            <li role="menuitem">
+              <a class="dropdown-item" href="#">用户</a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" href="#">经理</a>
+            </li>
+          </ul>
+        </div>
+
+        <a (click)="delete(user)" class="trash">
+          <span class="fa fa-trash fa-2x"></span>
+        </a>
+      </form>
     </li>
   </ul>
 </div>

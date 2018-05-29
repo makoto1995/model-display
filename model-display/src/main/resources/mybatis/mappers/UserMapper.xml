@@ -24,9 +24,9 @@
                 userPassword,
                 userRole
             ) VALUES (
-            #{user.email},
-            #{user.username},
-            #{user.password},
+            #{user.userEmail},
+            #{user.userName},
+            #{user.userPassword},
             'user'
         );
     </insert>

@@ -1,11 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
+import { Component, OnInit, NgZone, OnDestroy, TemplateRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Message } from '@stomp/stompjs';
 import { StompService } from '@stomp/ng2-stompjs';
 import 'unityLoader';
 import * as $ from 'jquery';
 import { Subscription } from 'rxjs/Subscription';
+import { AuthService } from '../../components/auth/auth.service';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { LineInfoModalComponent } from './lineInfoModal.component';
 
 declare const UnityLoader;
 
@@ -35,22 +39,50 @@ interface Result<T> {
   template: require('./display.html'),
   styles: [require('./display.scss')],
 })
+
 export class DisplayComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
-  private testSubscription: Subscription;
   public messages: Observable<Message>;
-  public testMessage: Observable<Message>;
   public subscribed = false;
-  static parameters = [StompService, NgZone, HttpClient];
+  static parameters = [BsModalService, AuthService, StompService, NgZone, HttpClient];
   public gameInstance: any;
   currentProductLine = '1';
   isLoaded = false;
+  isManager;
+  currentUser = {};
+  AuthService;
+  modalRef: BsModalRef;
+  items: any[];
 
-  public constructor(private _stompService: StompService, private ngZone: NgZone, public client: HttpClient) {
+  public constructor(private modalService: BsModalService
+    , private authService: AuthService
+    , private _stompService: StompService
+    , private ngZone: NgZone
+    , public client: HttpClient) {
+    this.AuthService = authService;
     (window as any).communication = (window as any).communication || {};
     (window as any).communication.getModelInfo = this.getModelInfo.bind(this);
     (window as any).communication.startup = this.startup.bind(this);
+    (window as any).communication.openLineDetail = this.openLineDetail.bind(this);
+    this.AuthService.isManager().then(is => {
+      this.isManager = is;
+    });
+    this.items = Array(15).fill(0);
   }
+
+  openLineDetail() {
+    const initialState = {
+      list: [
+        'Open a modal with component',
+        'Pass your data',
+        'Do something else',
+        '...'
+      ],
+      title: 'Modal with component'
+    };
+    this.modalRef = this.modalService.show(LineInfoModalComponent, {initialState});
+  }
+
   public getModelInfo(name: string) {
     let body = JSON.stringify({
       modelName: name

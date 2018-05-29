@@ -18,12 +18,12 @@ export class MainComponent {
   };
 
   chartData = [
-    {data: [330, 600, 260, 700], label: 'Account A'},
-    {data: [120, 455, 100, 340], label: 'Account B'},
-    {data: [45, 67, 800, 500], label: 'Account C'}
+    {data: [330, 600, 260, 700], label: '月进料'},
+    {data: [120, 455, 100, 340], label: '月出料'},
+    {data: [110, 145, 160, 360], label: '总平衡'}
   ];
 
-  chartLabels = ['January', 'February', 'Mars', 'April'];
+  chartLabels = ['一月', '二月', '三月', '四月'];
 
   doughnutOptions = {
     responsive: true,
@@ -55,9 +55,9 @@ export class MainComponent {
     }
   ];
 
-  doughnutLabels = ['Red',
-    'Orange',
-    'Yellow',
+  doughnutLabels = ['一等品',
+    '二等品',
+    '次等品',
   ];
 
   onChartClick(event) {

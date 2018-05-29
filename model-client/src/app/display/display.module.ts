@@ -1,3 +1,4 @@
+import { LineInfoModalComponent } from './lineInfoModal.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { IconsModule } from './../../components/icons.module';
 import { NgModule } from '@angular/core';
@@ -5,6 +6,7 @@ import { StompConfig, StompService } from '@stomp/ng2-stompjs';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { DisplayComponent } from './display.component';
+import { ModalModule } from 'ngx-bootstrap';
 
 
 const adminRoutes: Routes = [{
@@ -26,7 +28,8 @@ const stompConfig: StompConfig = {
     BrowserModule,
     RouterModule.forChild(adminRoutes),
     IconsModule,
-    HttpClientModule
+    HttpClientModule,
+    ModalModule
   ],
   providers: [
     StompService,
@@ -37,9 +40,11 @@ const stompConfig: StompConfig = {
   ],
   declarations: [
     DisplayComponent,
+    LineInfoModalComponent
   ],
   exports: [
     DisplayComponent,
+    LineInfoModalComponent
   ],
 })
 export class DisplayModule {

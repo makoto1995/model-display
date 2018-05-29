@@ -20,7 +20,8 @@ interface Result<T> {
 
 @Component({
   selector: 'signup',
-  template: require('./signup.html')
+  template: require('./signup.html'),
+  styles: [require('./signup.scss')],
 })
 export class SignupComponent {
   user: User = {

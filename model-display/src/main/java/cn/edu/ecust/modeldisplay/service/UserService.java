@@ -3,7 +3,7 @@ package cn.edu.ecust.modeldisplay.service;
 import cn.edu.ecust.modeldisplay.model.User;
 
 public interface UserService {
-    User[] index(User currentUser);
+    User[] index();
 
     void register(User user);
 
@@ -11,7 +11,7 @@ public interface UserService {
 
     User getUserByUserId(String id);
 
-    void deleteUser(User currentUser, String id);
+    void deleteUser(String id);
 
     void changePassword(String userID, String oldPassword, String newPassword);
 }

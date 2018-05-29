@@ -146,6 +146,7 @@ export class AuthService {
     return Promise.resolve(is);
   }
 
+
   /**
    * Checks if user is logged in
    * @returns {Boolean}
@@ -163,6 +164,14 @@ export class AuthService {
   isAdmin(callback?) {
     return this.getCurrentUser().then(user => {
       var is = user.userRole === 'admin';
+      safeCb(callback)(is);
+      return is;
+    });
+  }
+
+  isManager(callback?) {
+    return this.getCurrentUser().then(user => {
+      var is = user.userRole === 'manager';
       safeCb(callback)(is);
       return is;
     });

@@ -90,9 +90,9 @@ public class UserController {
 
     @GetMapping(value = "/", produces = {"application/json; charset=utf-8"})
     @ResponseBody
-    public Result<User[]> listUsers(@SessionAttribute("currentUser") User user) {
+    public Result<User[]> listUsers() {
         try {
-            return new Result<>(true, userService.index(user));
+            return new Result<>(true, userService.index());
         } catch (UserControlException e1) {
             logger.error(e1.getMessage(), e1);
             return new Result<>(false, e1.getMessage());
@@ -102,10 +102,10 @@ public class UserController {
 
     @DeleteMapping(value = "/{id}", produces = {"application/json; charset=utf-8"})
     @ResponseBody
-    public Result<User> deleteUser(@PathVariable("id") String id, @SessionAttribute("currentUser") User user) {
+    public Result<User> deleteUser(@PathVariable("id") String id) {
         try {
-            userService.deleteUser(user, id);
-            return new Result<>(true, user);
+            userService.deleteUser(id);
+            return new Result<>(true, new User());
         } catch (UserControlException e1) {
             logger.error(e1.getMessage(), e1);
             return new Result<>(false, e1.getMessage());

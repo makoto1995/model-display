@@ -44,17 +44,16 @@
         <h1 class="h2">现场展示</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group mr-2">
-            <button class="btn btn-sm btn-outline-secondary" (click)="changeCarState()">下一状态</button>
-            <button class="btn btn-sm btn-outline-secondary" (click)="reverseAlert()">恢复运行</button>
-            <button class="btn btn-sm btn-outline-secondary" (click)="sendAlert()">中断运行</button>
+            <button [hidden]="!isManager" class="btn btn-sm btn-outline-secondary" (click)="changeCarState()">下一状态</button>
+            <button [hidden]="!isManager" class="btn btn-sm btn-outline-secondary" (click)="reverseAlert()">恢复运行</button>
+            <button [hidden]="!isManager" class="btn btn-sm btn-outline-secondary" (click)="sendAlert()">中断运行</button>
           </div>
         </div>
       </div>
-
       <div id="gameContainer" class="my-0 w-100" style="width: 980px; height: inherit"></div>
-
+      <ng-template #template>
+        
+      </ng-template>
     </main>
-
   </div>
-
 </div>

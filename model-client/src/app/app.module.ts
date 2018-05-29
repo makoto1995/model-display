@@ -11,7 +11,9 @@ import {MainModule} from './main/main.module';
 import {DirectivesModule} from '../components/directives.module';
 import {AccountModule} from './account/account.module';
 import {AdminModule} from './admin/admin.module';
-import {DisplayModule} from './display/display.module';
+import { DisplayModule } from './display/display.module';
+import { BsDropdownModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap';
 
 export function getAuthHttp(httpClient) {
   return new AuthHttp(new AuthConfig({
@@ -36,6 +38,7 @@ const appRoutes: Routes = [{
 @NgModule({
   providers,
   imports: [
+    BsDropdownModule.forRoot(),
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes, {enableTracing: process.env.toString() === 'development'}),
@@ -43,7 +46,8 @@ const appRoutes: Routes = [{
     DirectivesModule,
     AccountModule,
     AdminModule,
-    DisplayModule
+    DisplayModule,
+    ModalModule.forRoot()
   ],
   declarations: [
     AppComponent,

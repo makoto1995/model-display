@@ -44,6 +44,7 @@
     "morgan": "~1.8.2",
     "net": "^1.0.2",
     "ng2-charts": "^1.6.0",
+    "ngx-bootstrap": "^3.0.0",
     "npm": "^6.0.1",
     "passport": "~0.4.0",
     "passport-local": "^1.0.0",

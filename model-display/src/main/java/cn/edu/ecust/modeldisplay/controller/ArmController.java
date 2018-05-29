@@ -32,9 +32,16 @@ public class ArmController {
         this.messagingTemplate = messagingTemplate;
     }
 
+    @PostMapping(value = "/arms/reset", consumes = {"application/json; charset=utf-8"})
+    @ResponseBody
+    public void reset(){
+        counter = 0;
+        isMoving = false;
+    }
+
     @PostMapping(value = "/arms/alert", consumes = {"application/json; charset=utf-8"})
     @ResponseBody
-    public void alert(@RequestBody AlertMessage message) throws Exception {
+    public void alert(@RequestBody AlertMessage message){
         switch (message.getMessageType()) {
             case 0:
                 isMoving = false;
@@ -47,7 +54,7 @@ public class ArmController {
 
     @PostMapping(value = "/arms/startup", consumes = {"application/json; charset=utf-8"})
     @ResponseBody
-    public void startUp(@RequestBody ProductLineMessage message) throws Exception {
+    public void startUp(@RequestBody ProductLineMessage message){
         logger.info(String.valueOf(message.getProductLineNum()));
         this.positionsService.setProductLineArms(message.getProductLineArms());
         if (message.getProductLineNum() == 1) {
@@ -56,8 +63,7 @@ public class ArmController {
     }
 
     @Scheduled(fixedDelay = 1000)
-    public void sendPosition() throws Exception {
-        logger.info("running state: "+String.valueOf(isMoving));
+    public void sendPosition(){
         if (!isMoving) {
             return;
         }
@@ -70,8 +76,6 @@ public class ArmController {
             }
         }
         counter = (counter >= 8000) ? 0 : counter + 1;
-        String target = JSON.toJSONString(positionMessages);
         messagingTemplate.convertAndSend("/topic/positions", JSON.toJSONString(positionMessages));
-
     }
 }
