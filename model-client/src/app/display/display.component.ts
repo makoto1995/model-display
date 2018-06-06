@@ -48,7 +48,7 @@ export class DisplayComponent implements OnInit, OnDestroy {
   public gameInstance: any;
   currentProductLine = '1';
   isLoaded = false;
-  isManager;
+  isAdmin;
   currentUser = {};
   AuthService;
   modalRef: BsModalRef;
@@ -64,8 +64,8 @@ export class DisplayComponent implements OnInit, OnDestroy {
     (window as any).communication.getModelInfo = this.getModelInfo.bind(this);
     (window as any).communication.startup = this.startup.bind(this);
     (window as any).communication.openLineDetail = this.openLineDetail.bind(this);
-    this.AuthService.isManager().then(is => {
-      this.isManager = is;
+    this.AuthService.isAdmin().then(is => {
+      this.isAdmin = is;
     });
     this.items = Array(15).fill(0);
   }
@@ -81,6 +81,7 @@ export class DisplayComponent implements OnInit, OnDestroy {
       title: 'Modal with component'
     };
     this.modalRef = this.modalService.show(LineInfoModalComponent, {initialState});
+    this.modalRef.content.closeBtnName = 'Close';
   }
 
   public getModelInfo(name: string) {

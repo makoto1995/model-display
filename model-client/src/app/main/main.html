@@ -2,38 +2,40 @@
   <div class="container mx-10 my-5">
     <h1>工业模型在线展示系统</h1>
     <p class="lead">展示，查询，编辑，远不止此……</p>
-    <!--<img src="assets/images/yeoman.png" alt="I'm Yeoman">-->
   </div>
 </header>
-
-
-<div class="container model-chart my-2">
-  <div class="row">
-    <div class="col-lg-7">
-      <h2>月生产情况</h2>
-      <div>
-        <canvas
-          baseChart
-          [chartType]="'line'"
-          [datasets]="chartData"
-          [labels]="chartLabels"
-          [options]="chartOptions"
-          [legend]="true"
-          (chartClick)="onChartClick($event)">
-        </canvas>
-      </div>
+<div class="col-md-9 container col-lg-10 px-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">生产线统计</h1>
+    <div dropdown class="btn-group btn-toolbar mb-2 mb-md-0">
+      <button dropdownToggle id="button-basic" type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" aria-controls="dropdown-basic">
+        {{displayLineCharts}}
+        <span class="caret"></span>
+      </button>
+      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+        <li *ngFor="let item of selections" role="menuitem">
+          <a class="dropdown-item" [hidden]="item.name === displayLineCharts" href="#">{{item.name}}</a>
+        </li>
+      </ul>
     </div>
-    <div class="col-lg-5">
-      <h2>当月正品率</h2>
-      <div>
-        <canvas
-          baseChart
-          [chartType]="'doughnut'"
-          [datasets]="doughnutData"
-          [labels]="doughnutLabels"
-          [options]="doughnutOptions"
-          [legend]="true">
-        </canvas>
+  </div>
+  <div class="model-chart my-2">
+    <div class="row">
+      <div class="col-lg-7">
+        <h2>月生产情况</h2>
+        <div>
+          <canvas baseChart [chartType]="'line'" [datasets]="chartData" [labels]="chartLabels" [options]="chartOptions" [legend]="true"
+            (chartClick)="onChartClick($event)">
+          </canvas>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <h2>当月正品率</h2>
+        <div>
+          <canvas baseChart [chartType]="'doughnut'" [datasets]="doughnutData" [labels]="doughnutLabels" [options]="doughnutOptions"
+            [legend]="true">
+          </canvas>
+        </div>
       </div>
     </div>
   </div>

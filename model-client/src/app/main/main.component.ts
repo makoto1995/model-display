@@ -10,6 +10,16 @@ import 'chart.js';
 
 
 export class MainComponent {
+  displayLineCharts = '工厂概览';
+  selections = [{
+    name: '工厂概览'
+  }, {
+    name: '一号生产线'
+  }, {
+    name: '二号生产线'
+  }, {
+    name: '总装生产线'
+  }];
   randomScalingFactor = function () {
     return Math.round(Math.random() * 100);
   };

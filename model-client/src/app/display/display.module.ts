@@ -43,9 +43,11 @@ const stompConfig: StompConfig = {
     LineInfoModalComponent
   ],
   exports: [
-    DisplayComponent,
-    LineInfoModalComponent
+    DisplayComponent
   ],
+  entryComponents: [
+    LineInfoModalComponent
+  ]
 })
 export class DisplayModule {
 }
