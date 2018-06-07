@@ -9,8 +9,11 @@ public class AlertMessage {
     private String alertArm;
     @JSONField(name = "alertPart")
     private String alertPart;
-    public AlertMessage(){}
-    public AlertMessage(int messageType, String alertArm, String alertPart){
+
+    public AlertMessage() {
+    }
+
+    public AlertMessage(int messageType, String alertArm, String alertPart) {
         this.messageType = messageType;
         this.alertArm = alertArm;
         this.alertPart = alertPart;
@@ -28,12 +31,12 @@ public class AlertMessage {
         return alertArm;
     }
 
-    public String getAlertPart() {
-        return alertPart;
-    }
-
     public void setAlertArm(String alertArm) {
         this.alertArm = alertArm;
+    }
+
+    public String getAlertPart() {
+        return alertPart;
     }
 
     public void setAlertPart(String alertPart) {

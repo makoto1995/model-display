@@ -146,21 +146,21 @@ public class UserController {
         }
     }
 
-    public final static class _passwords{
+    public final static class _passwords {
         @JSONField(name = "oldPassword")
         public String oldPassword;
         @JSONField(name = "newPassword")
         public String newPassword;
     }
 
-    public final static class _roles{
+    public final static class _roles {
         @JSONField(name = "oldRole")
         public String oldRole;
         @JSONField(name = "newRole")
         public String newRole;
     }
 
-    public final static class _loginInfo{
+    public final static class _loginInfo {
         @JSONField(name = "userEmail")
         public String email;
         @JSONField(name = "userPassword")
@@ -170,6 +170,7 @@ public class UserController {
     private final static class _id {
         public String id;
         public String role;
+
         public _id(String id, String role) {
             this.id = id;
             this.role = role;

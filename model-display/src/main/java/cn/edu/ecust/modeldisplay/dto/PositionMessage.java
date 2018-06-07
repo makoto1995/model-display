@@ -9,8 +9,11 @@ public class PositionMessage implements Serializable {
     private static final long serialVersionUID = -341658452058700240L;
     @JSONField(name = "position")
     private float[] position = new float[5];
-    public PositionMessage(){}
-    public PositionMessage(float[] position){
+
+    public PositionMessage() {
+    }
+
+    public PositionMessage(float[] position) {
         this.position = position;
     }
 

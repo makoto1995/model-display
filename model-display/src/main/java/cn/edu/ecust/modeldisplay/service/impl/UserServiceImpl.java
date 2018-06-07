@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User[] index() {
         try {
-                return userMapper.index();
+            return userMapper.index();
         } catch (UserControlException e1) {
             throw e1;
         } catch (Exception e) {

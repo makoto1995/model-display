@@ -9,12 +9,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class ModelDetailServiceImpl implements ModelDetailService {
     private ModelDetailMapper modelDetailMapper;
+
     @Autowired
-    public ModelDetailServiceImpl(ModelDetailMapper modelDetailMapper){
+    public ModelDetailServiceImpl(ModelDetailMapper modelDetailMapper) {
         this.modelDetailMapper = modelDetailMapper;
     }
+
     @Override
-    public ModelDetail getDetail(String name){
+    public ModelDetail getDetail(String name) {
         return this.modelDetailMapper.getModelDetailByParam(name);
     }
 }

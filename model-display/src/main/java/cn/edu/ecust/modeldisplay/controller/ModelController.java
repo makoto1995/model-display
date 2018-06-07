@@ -15,24 +15,26 @@ import org.springframework.web.bind.annotation.*;
 public class ModelController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     private ModelDetailService modelDetailService;
-    private final static class _modelName{
-        @JSONField(name = "modelName")
-        public String modelName;
-    }
+
     @Autowired
-    public ModelController(ModelDetailService modelDetailService){
+    public ModelController(ModelDetailService modelDetailService) {
         this.modelDetailService = modelDetailService;
     }
 
     @PostMapping(value = "/", produces = {"application/json; charset=utf-8"})
     @ResponseBody
-    public Result<ModelDetail> getModelDetail(@RequestBody _modelName modelName){
-        try{
+    public Result<ModelDetail> getModelDetail(@RequestBody _modelName modelName) {
+        try {
             logger.info(this.modelDetailService.getDetail(modelName.modelName).getModelName());
-            return new Result<>(true,this.modelDetailService.getDetail(modelName.modelName),"");
-        }catch (Exception e){
-            return new Result<>(false,e.toString());
+            return new Result<>(true, this.modelDetailService.getDetail(modelName.modelName), "");
+        } catch (Exception e) {
+            return new Result<>(false, e.toString());
         }
+    }
+
+    private final static class _modelName {
+        @JSONField(name = "modelName")
+        public String modelName;
     }
 
 }

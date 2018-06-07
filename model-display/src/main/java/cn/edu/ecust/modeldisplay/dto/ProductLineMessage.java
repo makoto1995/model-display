@@ -7,8 +7,11 @@ public class ProductLineMessage {
     private int productLineNum;
     @JSONField(name = "productLineArms")
     private int productLineArms;
-    public ProductLineMessage(){}
-    public ProductLineMessage(int productLineNum, int productLineArms){
+
+    public ProductLineMessage() {
+    }
+
+    public ProductLineMessage(int productLineNum, int productLineArms) {
         this.productLineArms = productLineArms;
         this.productLineNum = productLineNum;
     }
@@ -17,12 +20,12 @@ public class ProductLineMessage {
         return productLineArms;
     }
 
-    public int getProductLineNum() {
-        return productLineNum;
-    }
-
     public void setProductLineArms(int productLineArms) {
         this.productLineArms = productLineArms;
+    }
+
+    public int getProductLineNum() {
+        return productLineNum;
     }
 
     public void setProductLineNum(int productLineNum) {

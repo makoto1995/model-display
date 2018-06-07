@@ -36,14 +36,14 @@ public class DisplayController {
 
     @PostMapping(value = "/arms/reset", consumes = {"application/json; charset=utf-8"})
     @ResponseBody
-    public void reset(){
+    public void reset() {
         counter = 0;
         isMoving = false;
     }
 
     @PostMapping(value = "/arms/alert", consumes = {"application/json; charset=utf-8"})
     @ResponseBody
-    public void alert(@RequestBody AlertMessage message){
+    public void alert(@RequestBody AlertMessage message) {
         switch (message.getMessageType()) {
             case 0:
                 isMoving = false;
@@ -56,26 +56,26 @@ public class DisplayController {
 
     @PostMapping(value = "/arms/startup", consumes = {"application/json; charset=utf-8"})
     @ResponseBody
-    public void startUp(@RequestBody ProductLineMessage message){
+    public void startUp(@RequestBody ProductLineMessage message) {
         logger.info(String.valueOf(message.getProductLineNum()));
         this.positionsService.setProductLineArms(message.getProductLineArms());
         isMoving = true;
     }
 
     @Scheduled(fixedDelay = 50000)
-    public void sendAlert() throws Exception{
+    public void sendAlert() throws Exception {
         if (!startedMoving) {
             return;
         }
         isMoving = false;
-        messagingTemplate.convertAndSend("/topic/warnings", JSON.toJSONString(new AlertMessage(0,"Arm1-2", "Part4")));
+        messagingTemplate.convertAndSend("/topic/warnings", JSON.toJSONString(new AlertMessage(0, "Arm1-2", "Part4")));
         Thread.sleep(10000);
         isMoving = true;
-        messagingTemplate.convertAndSend("/topic/warnings", JSON.toJSONString(new AlertMessage(1,"Arm1-2", "Part4")));
+        messagingTemplate.convertAndSend("/topic/warnings", JSON.toJSONString(new AlertMessage(1, "Arm1-2", "Part4")));
     }
 
     @Scheduled(fixedDelay = 30000)
-    public void changeState(){
+    public void changeState() {
         if (!isMoving) {
             return;
         }
@@ -83,7 +83,7 @@ public class DisplayController {
     }
 
     @Scheduled(fixedDelay = 1000)
-    public void sendPosition(){
+    public void sendPosition() {
         if (!isMoving) {
             return;
         }
@@ -93,7 +93,7 @@ public class DisplayController {
             if (i % 2 == 0) {
                 positionMessages[i] = new PositionMessage(this.positionsService.getPositions(counter));
             } else {
-                positionMessages[i] = new PositionMessage(this.positionsService.getPositions(counter+20));
+                positionMessages[i] = new PositionMessage(this.positionsService.getPositions(counter + 20));
             }
         }
         counter = (counter >= 8000) ? 0 : counter + 1;
