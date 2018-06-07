@@ -20,9 +20,43 @@ export class MainComponent {
   }, {
     name: '总装生产线'
   }];
+  changeLineChart = function(displayLine: string) {
+    this.displayLineCharts = displayLine;
+    switch (displayLine) {
+      case '工厂概览':
+        this.chartData = [
+          { data: [330, 600, 260, 700], label: '月进料' },
+          { data: [120, 455, 100, 340], label: '月出料' },
+          { data: [110, 145, 160, 360], label: '总平衡' }
+        ];
+        break;
+      case '一号生产线':
+        this.chartData = [
+          { data: [130, 500, 260, 400], label: '月进料' },
+          { data: [120, 455, 100, 340], label: '月出料' },
+          { data: [10, 45, 160, 60], label: '总平衡' }
+        ];
+        break;
+      case '二号生产线':
+        this.chartData = [
+          { data: [380, 740, 220, 650], label: '月进料' },
+          { data: [340, 455, 100, 300], label: '月出料' },
+          { data: [40, 285, 120, 350], label: '总平衡' }
+        ];
+        break;
+      case '总装生产线':
+        this.chartData = [
+          { data: [330, 600, 260, 700], label: '月进料' },
+          { data: [120, 455, 100, 340], label: '月出料' },
+          { data: [110, 145, 160, 360], label: '总平衡' }
+        ];
+        break;
+    }
+  };
   randomScalingFactor = function () {
     return Math.round(Math.random() * 100);
   };
+
   chartOptions = {
     responsive: true
   };

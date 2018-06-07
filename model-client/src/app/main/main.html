@@ -8,13 +8,13 @@
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">生产线统计</h1>
     <div dropdown class="btn-group btn-toolbar mb-2 mb-md-0">
-      <button dropdownToggle id="button-basic" type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" aria-controls="dropdown-basic">
+      <button dropdownToggle id="button-basic" type="button" class="btn btn-outline-secondary dropdown-toggle" aria-controls="dropdown-basic">
         {{displayLineCharts}}
         <span class="caret"></span>
       </button>
       <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
         <li *ngFor="let item of selections" role="menuitem">
-          <a class="dropdown-item" [hidden]="item.name === displayLineCharts" href="#">{{item.name}}</a>
+          <a class="dropdown-item" [hidden]="item.name === displayLineCharts" (click)="changeLineChart(item.name)" href="javascript:void(0);">{{item.name}}</a>
         </li>
       </ul>
     </div>

@@ -2,7 +2,7 @@
  * The Util service is for thin, globally reusable, utility functions
  */
 
-import {isFunction, noop,} from 'lodash';
+import {isFunction, noop } from 'lodash';
 import {Response} from '@angular/http';
 
 /**
@@ -59,6 +59,6 @@ export function isSameOrigin(url, origins) {
 }
 
 export function extractData(res: Response) {
-    if(!res.text()) return {};
+    if (!res.text()) {return {}; }
     return res.json() || { };
 }

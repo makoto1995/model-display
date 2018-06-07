@@ -1,8 +1,8 @@
 // @flow
-import {Component} from '@angular/core';
-import {AuthService} from '../../../components/auth/auth.service';
-import {HttpClient} from '@angular/common/http';
-import {Router} from '@angular/router';
+import { Component } from '@angular/core';
+import { AuthService } from '../../../components/auth/auth.service';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 interface ChangePasswordDto {
   oldPassword: string;
@@ -34,7 +34,7 @@ export class SettingsComponent {
     newPassword: '',
     confirmPassword: ''
   };
-  errors = {other: undefined};
+  errors = { other: undefined };
   message = '';
   submitted = false;
   AuthService;
@@ -58,18 +58,18 @@ export class SettingsComponent {
       oldPassword: this.user.oldPassword,
       newPassword: this.user.newPassword,
     }, {
-      observe: 'response',
-      headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
-    }).subscribe(
-      res => {
-        if (res.body.success = false) {
-          this.errors.other = 'Incorrect password';
-          console.log(res.body.data);
-          return;
+        observe: 'response',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+      }).subscribe(
+        res => {
+          if (res.body.success = false) {
+            this.errors.other = 'Incorrect password';
+            console.log(res.body.data);
+            return;
+          }
+          this.message = 'Password successfully changed.';
+          this.Router.navigateByUrl('/home');
         }
-        this.message = 'Password successfully changed.';
-        this.Router.navigateByUrl('/home');
-      }
-    );
+      );
   }
 }

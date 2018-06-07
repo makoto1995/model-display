@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 interface User {
   userEmail: string;
@@ -13,6 +13,7 @@ interface Result<T> {
   success: boolean;
   data: T;
   token: string;
+  error?: string;
 }
 
 @Component({
@@ -25,10 +26,13 @@ export class AdminComponent {
 
   static parameters = [HttpClient];
   constructor(public httpClient: HttpClient) {
-    // Use the user service to fetch all users
+    this.reset();
+  }
+
+  reset() {
     this.httpClient.get<Result<User[]>>('http://localhost:9000/users/', {
       observe: 'response',
-      headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
     }).subscribe(
       res => {
         this.users = res.body.data;
@@ -36,10 +40,28 @@ export class AdminComponent {
     );
   }
 
+  modify(user, targetRole: string) {
+    this.httpClient.put<Result<User>>('http://localhost:9000/users/${user.userId}/role',
+      JSON.stringify({
+        oldRole: user.userRole,
+        newRole: targetRole
+      }), {
+        observe: 'response',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+      }).subscribe(
+        res => {
+          if (res.body.success === false) {
+            console.log(res.body.error);
+          }
+          this.reset();
+        }
+      );
+  }
+
   delete(user) {
     this.httpClient.delete<Result<User>>('http://localhost:9000/users/${user.userId}', {
       observe: 'response',
-      headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
     }).subscribe(
       () => {
         this.users.splice(this.users.indexOf(user), 1);

@@ -20,16 +20,15 @@
           </button>
           <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
             <li role="menuitem">
-              <a class="dropdown-item" href="#">用户</a>
+              <a class="dropdown-item" href="javascript:void(0);" (click)="modify(user, 'user')">用户</a>
             </li>
             <li role="menuitem">
-              <a class="dropdown-item" href="#">管理员</a>
+              <a class="dropdown-item" href="javascript:void(0);" (click)="modify(user, 'manager')">管理员</a>
             </li>
           </ul>
         </div>
-
-        <a (click)="delete(user)" class="trash">
-          <span class="fa fa-trash fa-2x"></span>
+        <a (click)=" delete(user) " class="trash ">
+          <span class="fa fa-trash fa-2x "></span>
         </a>
       </form>
     </li>

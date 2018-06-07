@@ -1,16 +1,16 @@
-import {ApplicationRef, NgModule, Provider} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
-import {createInputTransfer, createNewHosts, removeNgStyles} from '@angularclass/hmr';
+import { ApplicationRef, NgModule, Provider } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { createInputTransfer, createNewHosts, removeNgStyles } from '@angularclass/hmr';
 
-import {RouterModule, Routes} from '@angular/router';
-import {AuthConfig, AuthHttp} from 'angular2-jwt';
+import { RouterModule, Routes } from '@angular/router';
+import { AuthConfig, AuthHttp } from 'angular2-jwt';
 
-import {AppComponent} from './app.component';
-import {MainModule} from './main/main.module';
-import {DirectivesModule} from '../components/directives.module';
-import {AccountModule} from './account/account.module';
-import {AdminModule} from './admin/admin.module';
+import { AppComponent } from './app.component';
+import { MainModule } from './main/main.module';
+import { DirectivesModule } from '../components/directives.module';
+import { AccountModule } from './account/account.module';
+import { AdminModule } from './admin/admin.module';
 import { DisplayModule } from './display/display.module';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap';
@@ -18,7 +18,7 @@ import { ModalModule } from 'ngx-bootstrap';
 export function getAuthHttp(httpClient) {
   return new AuthHttp(new AuthConfig({
     noJwtError: true,
-    globalHeaders: [{'Accept': 'application/json'}],
+    globalHeaders: [{ 'Accept': 'application/json' }],
     tokenGetter: (() => localStorage.getItem('id_token')),
   }), httpClient);
 }
@@ -41,7 +41,7 @@ const appRoutes: Routes = [{
     BsDropdownModule.forRoot(),
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes, {enableTracing: process.env.toString() === 'development'}),
+    RouterModule.forRoot(appRoutes, { enableTracing: process.env.toString() === 'development' }),
     MainModule,
     DirectivesModule,
     AccountModule,
@@ -84,7 +84,7 @@ export class AppModule {
     store.disposeOldHosts = createNewHosts(cmpLocation);
     // inject your AppStore and grab state then set it on store
     // var appState = this.AppStore.get()
-    store.state = {data: 'yolo'};
+    store.state = { data: 'yolo' };
     // store.state = Object.assign({}, appState)
     // save input values
     store.restoreInputValues = createInputTransfer();

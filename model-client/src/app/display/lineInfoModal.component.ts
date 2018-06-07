@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 @Component({
     selector: 'line-detail',
@@ -28,6 +27,5 @@ export class LineInfoModalComponent implements OnInit {
     static parameters = [BsModalRef];
     constructor(public bsModalRef: BsModalRef) { }
     ngOnInit() {
-        this.list.push('PROFIT!!!');
     }
 }

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class DisplayController {
 
     private static boolean isMoving = false;
+    private static boolean startedMoving = false;
     private static int counter = 0;
     private PositionsService positionsService;
     private SimpMessagingTemplate messagingTemplate;
@@ -58,26 +59,27 @@ public class DisplayController {
     public void startUp(@RequestBody ProductLineMessage message){
         logger.info(String.valueOf(message.getProductLineNum()));
         this.positionsService.setProductLineArms(message.getProductLineArms());
-        if (message.getProductLineNum() == 1) {
-            isMoving = true;
-        }
+        isMoving = true;
     }
 
     @Scheduled(fixedDelay = 50000)
-    public void sendAlert(){
+    public void sendAlert() throws Exception{
+        if (!startedMoving) {
+            return;
+        }
         isMoving = false;
-        messagingTemplate.convertAndSend("topic/warnings", JSON.toJSONString(new AlertMessage(0,"Arm1-2", "Part4")));
-    }
-
-    @Scheduled(fixedDelay = 60000)
-    public void reverseAlert(){
+        messagingTemplate.convertAndSend("/topic/warnings", JSON.toJSONString(new AlertMessage(0,"Arm1-2", "Part4")));
+        Thread.sleep(10000);
         isMoving = true;
-        messagingTemplate.convertAndSend("topic/warnings", JSON.toJSONString(new AlertMessage(1,"Arm1-2", "Part4")));
+        messagingTemplate.convertAndSend("/topic/warnings", JSON.toJSONString(new AlertMessage(1,"Arm1-2", "Part4")));
     }
 
     @Scheduled(fixedDelay = 30000)
     public void changeState(){
-        messagingTemplate.convertAndSend("topic/stages", JSON.toJSONString(new ChangeStageMessage("change")));
+        if (!isMoving) {
+            return;
+        }
+        messagingTemplate.convertAndSend("/topic/stages", JSON.toJSONString(new ChangeStageMessage("change")));
     }
 
     @Scheduled(fixedDelay = 1000)
@@ -85,12 +87,13 @@ public class DisplayController {
         if (!isMoving) {
             return;
         }
+        startedMoving = true;
         PositionMessage[] positionMessages = new PositionMessage[this.positionsService.getProductLineArms()];
         for (int i = 0; i < positionMessages.length; i++) {
             if (i % 2 == 0) {
                 positionMessages[i] = new PositionMessage(this.positionsService.getPositions(counter));
             } else {
-                positionMessages[i] = new PositionMessage(new float[5]);
+                positionMessages[i] = new PositionMessage(this.positionsService.getPositions(counter+20));
             }
         }
         counter = (counter >= 8000) ? 0 : counter + 1;

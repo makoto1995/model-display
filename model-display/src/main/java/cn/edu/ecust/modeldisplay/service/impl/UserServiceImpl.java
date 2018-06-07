@@ -111,4 +111,20 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public void changeRole(String userID, String oldRole, String newRole) {
+        try {
+            if (userMapper.getUserByUserId(userID) == null || !userMapper.getUserByUserId(userID).getUserRole().equals(oldRole)) {
+                throw new UserControlException("数据库无相关记录，非法操作！");
+            } else if (newRole.equals("admin") || oldRole.equals("admin")) {
+                throw new UserControlException("非法操作！");
+            } else {
+                userMapper.changeRole(userID, newRole);
+            }
+        } catch (UserControlException e1) {
+            throw e1;
+        } catch (Exception e) {
+            throw new UserControlException("发生内部错误！" + e.getMessage());
+        }
+    }
 }

@@ -1,15 +1,13 @@
 import { NavbarComponent } from './../../components/navbar/navbar.component';
 import { DirectivesModule } from './../../components/directives.module';
-import { NgModule, Provider } from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {BrowserModule} from '@angular/platform-browser';
-import {HttpClientModule, HttpClient} from '@angular/common/http';
-import {RouterModule, Routes} from '@angular/router';
-
-
-import {LoginComponent} from './login/login.component';
-import {SettingsComponent} from './settings/settings.component';
-import {SignupComponent} from './signup/signup.component';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './login/login.component';
+import { SettingsComponent } from './settings/settings.component';
+import { SignupComponent } from './signup/signup.component';
 import { AuthService } from '../../components/auth/auth.service';
 
 const accountRoutes: Routes = [{

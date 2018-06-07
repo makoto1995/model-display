@@ -17,4 +17,6 @@ public interface UserMapper {
     void deleteUser(@Param("id") String id);
 
     void changePassword(@Param("userID") String userID, @Param("newPassword") String newPassword);
+
+    void changeRole(@Param("userID") String userID, @Param("newRole") String newRole);
 }

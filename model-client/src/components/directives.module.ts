@@ -7,7 +7,6 @@ import {RouterModule} from '@angular/router';
 import {AuthModule} from './auth/auth.module';
 
 import {NavbarComponent} from './navbar/navbar.component';
-import {FooterComponent} from './footer/footer.component';
 
 
 @NgModule({
@@ -19,12 +18,9 @@ import {FooterComponent} from './footer/footer.component';
     ],
     declarations: [
         NavbarComponent,
-        FooterComponent,
     ],
     exports: [
         NavbarComponent,
-        FooterComponent,
-
     ]
 })
 export class DirectivesModule {}

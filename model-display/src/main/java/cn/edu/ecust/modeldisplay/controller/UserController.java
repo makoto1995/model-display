@@ -45,12 +45,10 @@ public class UserController {
                                         String.valueOf(userService.getUserByEmail(loginInfo.email).getUserRole()))))
                         .signWith(SignatureAlgorithm.HS512, key)
                         .compact();
-                Result<User> result = new Result<>(true,
+                return new Result<>(true,
                         userService.getUserByEmail(loginInfo.email)
                         , token
                 );
-                logger.info((result.isSuccess())?"1":"0");
-                return result;
             }
             throw new LoginException("密码错误，请重新输入！");
         } catch (LoginException e1) {
@@ -123,6 +121,18 @@ public class UserController {
         }
     }
 
+    @PutMapping(value = "/{id}/role", produces = {"application/json; charset=utf-8"})
+    @ResponseBody
+    public Result<User> changeRole(@PathVariable("id") String id, @RequestBody _roles roles) {
+        try {
+            userService.changeRole(id, roles.oldRole, roles.newRole);
+            return new Result<>(true, userService.getUserByUserId(id));
+        } catch (UserControlException e1) {
+            logger.error(e1.getMessage(), e1);
+            return new Result<>(false, e1.getMessage());
+        }
+    }
+
     @PutMapping(value = "/{id}/password", produces = {"application/json; charset=utf-8"})
     @ResponseBody
     public Result<User> changePassword(@PathVariable("id") String id, @RequestBody _passwords passwords, HttpSession httpSession) {
@@ -141,6 +151,13 @@ public class UserController {
         public String oldPassword;
         @JSONField(name = "newPassword")
         public String newPassword;
+    }
+
+    public final static class _roles{
+        @JSONField(name = "oldRole")
+        public String oldRole;
+        @JSONField(name = "newRole")
+        public String newRole;
     }
 
     public final static class _loginInfo{

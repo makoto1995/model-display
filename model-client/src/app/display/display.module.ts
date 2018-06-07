@@ -1,5 +1,5 @@
 import { LineInfoModalComponent } from './lineInfoModal.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { IconsModule } from './../../components/icons.module';
 import { NgModule } from '@angular/core';
 import { StompConfig, StompService } from '@stomp/ng2-stompjs';

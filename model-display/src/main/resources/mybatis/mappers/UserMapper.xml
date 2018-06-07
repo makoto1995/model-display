@@ -80,4 +80,12 @@
         WHERE
             userId = #{userID};
     </update>
+    <update id="changeRole" parameterType="String">
+        UPDATE
+            tbl_users
+        SET
+            userRole = #{newRole}
+        WHERE
+            userId = #{userID};
+    </update>
 </mapper>

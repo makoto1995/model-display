@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, NgZone, OnDestroy, TemplateRef } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Component, OnInit, NgZone, OnDestroy} from '@angular/core';
 import { Message } from '@stomp/stompjs';
 import { StompService } from '@stomp/ng2-stompjs';
 import 'unityLoader';
@@ -27,6 +26,12 @@ interface PositionMessage {
   position: number[];
 }
 
+interface WarningMessage {
+  messageType: number;
+  alertArm: string;
+  alertPart: string;
+}
+
 interface Result<T> {
   success: boolean;
   data: T;
@@ -41,18 +46,17 @@ interface Result<T> {
 })
 
 export class DisplayComponent implements OnInit, OnDestroy {
-  private subscription: Subscription;
-  public messages: Observable<Message>;
+  private positionSubscription: Subscription;
+  private stageSubscription: Subscription;
+  private warningSubscription: Subscription;
   public subscribed = false;
   static parameters = [BsModalService, AuthService, StompService, NgZone, HttpClient];
   public gameInstance: any;
-  currentProductLine = '1';
-  isLoaded = false;
+  currentProductLine = 1;
   isAdmin;
   currentUser = {};
   AuthService;
   modalRef: BsModalRef;
-  items: any[];
 
   public constructor(private modalService: BsModalService
     , private authService: AuthService
@@ -67,21 +71,25 @@ export class DisplayComponent implements OnInit, OnDestroy {
     this.AuthService.isAdmin().then(is => {
       this.isAdmin = is;
     });
-    this.items = Array(15).fill(0);
   }
 
+  lineDetail = {
+    goodRate: '80%',
+    monthlyProblems: '2',
+    dailyOutputs: '80台'
+  };
+
   openLineDetail() {
-    const initialState = {
+    let initialState = {
       list: [
-        'Open a modal with component',
-        'Pass your data',
-        'Do something else',
-        '...'
+        '正品率： ' + this.lineDetail.goodRate,
+        '月故障次数： ' + this.lineDetail.monthlyProblems,
+        '日流水： ' + this.lineDetail.dailyOutputs
       ],
-      title: 'Modal with component'
+      title: '生产线统计'
     };
-    this.modalRef = this.modalService.show(LineInfoModalComponent, {initialState});
-    this.modalRef.content.closeBtnName = 'Close';
+    this.modalRef = this.modalService.show(LineInfoModalComponent, { initialState });
+    this.modalRef.content.closeBtnName = '关闭';
   }
 
   public getModelInfo(name: string) {
@@ -110,18 +118,18 @@ export class DisplayComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.init();
-    this.subscribe();
   }
 
-  startup() {
+  startup(lineArms = 10, lineNum = 1) {
     this.client.post('http://localhost:9000/arms/startup', JSON.stringify({
-      productLineNum: 1,
-      productLineArms: 10
+      productLineNum: lineNum,
+      productLineArms: lineArms
     }), {
         observe: 'response',
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
       }).subscribe(res => {
         console.log(res);
+        this.subscribe();
       });
   }
 
@@ -132,23 +140,39 @@ export class DisplayComponent implements OnInit, OnDestroy {
   private init() {
     $.getScript('assets/Build/UnityLoader.js').done(() =>
       this.gameInstance = UnityLoader.instantiate('gameContainer', 'assets/Build/DisplayBuild.json'));
-
   }
 
   public subscribe() {
     console.log(this.subscribed);
-    this.messages = this._stompService.subscribe('/topic/positions');
-    this.subscription = this.messages.subscribe(this.on_next);
+    this.positionSubscription = this._stompService.subscribe('/topic/positions').subscribe(this.on_next);
+    this.stageSubscription = this._stompService.subscribe('/topic/stages').subscribe((message: Message) => {
+      console.log(message.body);
+      this.changeCarState();
+    });
+    this.warningSubscription = this._stompService.subscribe('/topic/warnings').subscribe((message: Message) => {
+      var warningMessage: WarningMessage = JSON.parse(message.body);
+      if (warningMessage.messageType === 0) {
+        this.gameInstance.SendMessage('Plane', 'AlertPart', JSON.stringify({
+          armName: warningMessage.alertArm,
+          partName: warningMessage.alertPart,
+        }));
+      } else if (warningMessage.messageType === 1) {
+        this.gameInstance.SendMessage('Plane', 'ReversePartAlert', JSON.stringify({
+          armName: warningMessage.alertArm,
+          partName: warningMessage.alertPart,
+        }));
+      }
+    });
     this.subscribed = true;
   }
 
   public unsubscribe() {
-    if (!!!this.subscribed) {
-      return;
-    }
-    this.subscription.unsubscribe();
-    this.subscription = null;
-    this.messages = null;
+    this.positionSubscription.unsubscribe();
+    this.stageSubscription.unsubscribe();
+    this.warningSubscription.unsubscribe();
+    this.positionSubscription = null;
+    this.stageSubscription = null;
+    this.warningSubscription = null;
     this.subscribed = false;
   }
 
@@ -198,9 +222,35 @@ export class DisplayComponent implements OnInit, OnDestroy {
     }));
   }
 
-  changeProductLine(productLineNum: string) {
+  changeProductLine(productLineNum: number) {
     this.currentProductLine = productLineNum;
     this.gameInstance.SendMessage('Plane', 'ChangeProductLine', productLineNum.toString());
+    switch (productLineNum) {
+      case 1:
+        this.lineDetail = {
+          goodRate: '80%',
+          monthlyProblems: '2',
+          dailyOutputs: '80台'
+        };
+        this.startup(10, 1);
+        break;
+      case 2:
+        this.lineDetail = {
+          goodRate: '92%',
+          monthlyProblems: '1',
+          dailyOutputs: '60台'
+        };
+        this.startup(14, 2);
+        break;
+      case 3:
+        this.lineDetail = {
+          goodRate: '73%',
+          monthlyProblems: '3',
+          dailyOutputs: '140台'
+        };
+        this.startup(10, 3);
+        break;
+    }
   }
 
   setModelInfo(modelDetail: ModelDetail) {
