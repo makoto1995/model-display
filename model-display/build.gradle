@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '2.0.1.RELEASE'
+        springBootVersion = '2.0.2.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -23,6 +23,15 @@ repositories {
     mavenCentral()
 }
 
+springBoot {
+    mainClassName = 'cn.edu.ecust.modeldisplay.ModelDisplayApplication'
+}
+
+bootJar{
+    manifest{
+        attributes 'Start-Class':'cn.edu.ecust.modeldisplay.ModelDisplayApplication'
+    }
+}
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-aop')

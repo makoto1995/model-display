@@ -54,6 +54,7 @@ export class DisplayComponent implements OnInit, OnDestroy {
   public gameInstance: any;
   currentProductLine = 1;
   isAdmin;
+  isManager;
   currentUser = {};
   AuthService;
   modalRef: BsModalRef;
@@ -71,6 +72,9 @@ export class DisplayComponent implements OnInit, OnDestroy {
     this.AuthService.isAdmin().then(is => {
       this.isAdmin = is;
     });
+    this.AuthService.isManager().then(is => {
+      this.isManager = is;
+    });
   }
 
   lineDetail = {
@@ -80,6 +84,9 @@ export class DisplayComponent implements OnInit, OnDestroy {
   };
 
   openLineDetail() {
+    if (!this.isManager && !this.isAdmin) {
+      return;
+    }
     let initialState = {
       list: [
         '正品率： ' + this.lineDetail.goodRate,
@@ -151,16 +158,18 @@ export class DisplayComponent implements OnInit, OnDestroy {
     });
     this.warningSubscription = this._stompService.subscribe('/topic/warnings').subscribe((message: Message) => {
       var warningMessage: WarningMessage = JSON.parse(message.body);
-      if (warningMessage.messageType === 0) {
-        this.gameInstance.SendMessage('Plane', 'AlertPart', JSON.stringify({
-          armName: warningMessage.alertArm,
-          partName: warningMessage.alertPart,
-        }));
-      } else if (warningMessage.messageType === 1) {
-        this.gameInstance.SendMessage('Plane', 'ReversePartAlert', JSON.stringify({
-          armName: warningMessage.alertArm,
-          partName: warningMessage.alertPart,
-        }));
+      if (this.isManager || this.isAdmin) {
+        if (warningMessage.messageType === 0) {
+          this.gameInstance.SendMessage('Plane', 'AlertPart', JSON.stringify({
+            armName: warningMessage.alertArm,
+            partName: warningMessage.alertPart,
+          }));
+        } else if (warningMessage.messageType === 1) {
+          this.gameInstance.SendMessage('Plane', 'ReversePartAlert', JSON.stringify({
+            armName: warningMessage.alertArm,
+            partName: warningMessage.alertPart,
+          }));
+        }
       }
     });
     this.subscribed = true;
