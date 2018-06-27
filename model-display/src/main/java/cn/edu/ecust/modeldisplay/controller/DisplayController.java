@@ -74,7 +74,7 @@ public class DisplayController {
         messagingTemplate.convertAndSend("/topic/warnings", JSON.toJSONString(new AlertMessage(1, "Arm1-2", "Part4")));
     }
 
-    @Scheduled(fixedDelay = 30000)
+    @Scheduled(fixedDelay = 5000)
     public void changeState() {
         if (!isMoving) {
             return;
@@ -82,7 +82,7 @@ public class DisplayController {
         messagingTemplate.convertAndSend("/topic/stages", JSON.toJSONString(new ChangeStageMessage("change")));
     }
 
-    @Scheduled(fixedDelay = 1000)
+    @Scheduled(fixedDelay = 200)
     public void sendPosition() {
         if (!isMoving) {
             return;

@@ -41,7 +41,7 @@ export class AdminComponent {
   }
 
   modify(user, targetRole: string) {
-    this.httpClient.put<Result<User>>('http://localhost:9000/users/${user.userId}/role',
+    this.httpClient.put<Result<User>>('http://localhost:9000/users/' + user.userId + '/role',
       JSON.stringify({
         oldRole: user.userRole,
         newRole: targetRole
@@ -59,7 +59,7 @@ export class AdminComponent {
   }
 
   delete(user) {
-    this.httpClient.delete<Result<User>>('http://localhost:9000/users/${user.userId}', {
+    this.httpClient.delete<Result<User>>('http://localhost:9000/users/' + user.userId, {
       observe: 'response',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
     }).subscribe(

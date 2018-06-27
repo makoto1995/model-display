@@ -42,7 +42,7 @@
         WHERE
             userEmail = #{email};
     </select>
-    <select id="getUserByUserID" resultType="cn.edu.ecust.modeldisplay.model.User" parameterType="String">
+    <select id="getUserByUserId" resultType="cn.edu.ecust.modeldisplay.model.User" parameterType="String">
         SELECT
             userId,
             userEmail,
