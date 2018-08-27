@@ -21,9 +21,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 
-@EnableAutoConfiguration
 @SpringBootApplication
-@ComponentScan
 @MapperScan("cn.edu.ecust.modeldisplay.mapper")
 public class ModelDisplayApplication {
     private static Logger logger = LoggerFactory.getLogger(ModelDisplayApplication.class);
@@ -31,32 +29,6 @@ public class ModelDisplayApplication {
     public static void main(String[] args) {
         SpringApplication.run(ModelDisplayApplication.class, args);
         logger.info("============= SpringBoot Start Success =============");
-    }
-
-    @Bean
-    public SqlSessionFactory sqlSessionFactoryBean() throws Exception {
-
-        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-        sqlSessionFactoryBean.setDataSource(dataSource());
-        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:/mybatis/mappers/*.xml"));
-        return sqlSessionFactoryBean.getObject();
-    }
-
-    @Bean
-    public PlatformTransactionManager transactionManager() {
-        return new DataSourceTransactionManager(dataSource());
-    }
-
-    @Bean
-    @ConfigurationProperties(prefix = "spring.datasource")
-    public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/model_display?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=CONVERT_TO_NULL");
-        dataSource.setUsername("root");
-        dataSource.setPassword("FORESTfuck123!");
-        return dataSource;
     }
 
     @Bean
